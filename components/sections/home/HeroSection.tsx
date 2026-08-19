@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PrimaryButton, SecondaryButton } from "../../ui/Button";
@@ -18,8 +19,8 @@ const scenes = [
     eyebrow: "PURE • TRADITIONAL • AUTHENTIC",
     heading: "From Nature to Purity",
     description: "Experience the timeless journey of carefully selected mustard seeds transformed through traditional cold-press extraction.",
-    cta1: "Shop The Harvest",
-    cta2: "Explore Our Process",
+    cta1: "Explore Our Oils",
+    cta2: "Our Process",
   },
   {
     eyebrow: "SELECTED MUSTARD SEEDS",
@@ -40,7 +41,7 @@ const scenes = [
     eyebrow: "PURE MUSTARD OIL",
     heading: "Pure From Seed to Bottle",
     description: "A traditional process. A rich natural taste. A product made with care.",
-    cta1: "Shop Now",
+    cta1: "Enquire Now",
   }
 ];
 
@@ -228,8 +229,16 @@ export default function HeroSection() {
               
               {(scene.cta1 || scene.cta2) && (
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-5 items-start sm:items-center pointer-events-auto">
-                  {scene.cta1 && <PrimaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs">{scene.cta1}</PrimaryButton>}
-                  {scene.cta2 && <SecondaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs border-white/30 text-white hover:text-[#e2a325]">{scene.cta2}</SecondaryButton>}
+                  {scene.cta1 && (
+                    <Link href={scene.cta1 === "Enquire Now" ? "/contact" : "/products"}>
+                      <PrimaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs">{scene.cta1}</PrimaryButton>
+                    </Link>
+                  )}
+                  {scene.cta2 && (
+                    <Link href="/process">
+                      <SecondaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs border-white/30 text-white hover:text-[#e2a325]">{scene.cta2}</SecondaryButton>
+                    </Link>
+                  )}
                 </div>
               )}
             </div>

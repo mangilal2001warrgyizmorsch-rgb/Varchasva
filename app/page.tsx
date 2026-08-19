@@ -18,7 +18,7 @@ export default function PremiumEdibleOilHomepage() {
       <ProcessSection />
       <ProductsSection />
       <BannerSection />
-      {/* <InstagramSection /> */}
+      <InstagramSection />
       <Footer />
     </div>
   );
