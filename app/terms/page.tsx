@@ -10,27 +10,27 @@ export default function TermsPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-40 pb-20 px-6 lg:px-24 bg-[#fdfaf6] overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
+      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-12 sm:pb-20 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-8 font-light">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Terms of Service</span>
           </div>
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Legal</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-6">Terms of Service</h1>
-          <p className="text-sm text-gray-400 font-light">Last updated: August 2026</p>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Terms of Service</h1>
+          <p className="text-xs sm:text-sm text-gray-400 font-light">Last updated: August 2026</p>
         </div>
       </section>
 
       {/* CONTENT */}
-      <section className="bg-white py-20 px-6 lg:px-24">
-        <div className="max-w-3xl mx-auto space-y-10">
+      <section className="bg-white py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24">
+        <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10">
           <TermsSection title="Agreement to Terms">
             <p>By accessing and using the Dharohar Natural Oils website (dharohar.com), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
           </TermsSection>
@@ -85,8 +85,8 @@ export default function TermsPage() {
 function TermsSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-2xl font-serif text-[#111810] mb-4">{title}</h2>
-      <div className="text-gray-600 font-light leading-relaxed space-y-3 text-sm [&_strong]:font-medium [&_strong]:text-[#111810]">{children}</div>
+      <h2 className="text-xl sm:text-2xl font-serif text-[#111810] mb-3 sm:mb-4">{title}</h2>
+      <div className="text-gray-600 font-light leading-relaxed space-y-2.5 sm:space-y-3 text-xs sm:text-sm [&_strong]:font-medium [&_strong]:text-[#111810]">{children}</div>
     </div>
   );
 }

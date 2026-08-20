@@ -1,14 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { Star, MessageCircle, ChevronRight, SlidersHorizontal } from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { PrimaryButton } from "../../components/ui/Button";
 import { PRODUCTS, CATEGORIES } from "../../constants/products";
 import type { Product } from "../../constants/products";
+import { useEnquiry } from "../../context/EnquiryContext";
+import { scaleIn, staggerContainer, staggerItem, heroStagger, heroReveal, viewportOnce } from "../../utils/animations";
 
 export default function ProductsPage() {
+  const { openEnquiry } = useEnquiry();
   const [activeCategory, setActiveCategory] = useState("All");
   const filtered = activeCategory === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
 
@@ -17,103 +22,142 @@ export default function ProductsPage() {
       <Header />
 
       {/* ── HERO BANNER ── */}
-      <section className="relative pt-40 pb-28 px-6 lg:px-24 bg-[#fdfaf6] overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-8 font-light">
+      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-24 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-64 sm:w-80 md:w-[400px] h-64 sm:h-80 md:h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
+        <motion.div 
+          className="max-w-7xl mx-auto relative z-10"
+          initial="hidden"
+          animate="visible"
+          variants={heroStagger}
+        >
+          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Our Collection</span>
-          </div>
-          <div className="flex items-center gap-3 mb-6">
+          </motion.div>
+          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-4 sm:mb-6">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Our Oils</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-6">Our Collection</h1>
-          <p className="text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
+          </motion.div>
+          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Our Collection</motion.h1>
+          <motion.p variants={heroReveal} className="text-sm sm:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
             Every bottle is cold-pressed from hand-selected seeds, preserving nature&apos;s goodness in its purest form.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* ── FILTER BAR ── */}
-      <section className="bg-white border-b border-gray-100 sticky top-[72px] z-40 backdrop-blur-xl bg-white/90">
-        <div className="max-w-7xl mx-auto px-6 lg:px-24 py-5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-2">
+      <motion.section 
+        className="bg-white border-b border-gray-100 sticky top-[58px] sm:top-[66px] z-30 backdrop-blur-xl bg-white/95 shadow-sm"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 py-3.5 sm:py-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             {CATEGORIES.map((cat) => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all duration-300 border ${activeCategory === cat ? "bg-[#111810] text-white border-[#111810] shadow-lg shadow-black/10" : "bg-transparent text-gray-500 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"}`}>
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest transition-all duration-300 border cursor-pointer flex-shrink-0 ${activeCategory === cat ? "bg-[#111810] text-white border-[#111810] shadow-md shadow-black/10" : "bg-transparent text-gray-500 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"}`}>
                 {cat}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-400 font-light">
-            <SlidersHorizontal size={16} />
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 font-light justify-end">
+            <SlidersHorizontal size={14} className="sm:w-4 sm:h-4" />
             <span>{filtered.length} product{filtered.length !== 1 ? "s" : ""}</span>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── PRODUCT GRID ── */}
-      <section className="py-20 px-6 lg:px-24 bg-white">
+      <section className="py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-            {filtered.map((product) => (<ProductCard key={product.slug} product={product} />))}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeCategory}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              {filtered.map((product) => (<ProductCard key={product.slug} product={product} />))}
+            </motion.div>
+          </AnimatePresence>
           {filtered.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-gray-400 text-lg font-light">No products found in this category.</p>
-            </div>
+            <motion.div 
+              className="text-center py-16 sm:py-20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <p className="text-gray-400 text-base sm:text-lg font-light">No products found in this category.</p>
+            </motion.div>
           )}
         </div>
       </section>
 
       {/* ── PROMISE STRIP ── */}
-      <section className="bg-[#fdfaf6] py-20 px-6 lg:px-24 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-center">
+      <section className="bg-[#fdfaf6] py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+        <motion.div 
+          className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-center"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
           {[
             { icon: "🌿", title: "100% Natural", sub: "No additives ever" },
             { icon: "❄️", title: "Cold-Pressed", sub: "Below 40°C extraction" },
             { icon: "📞", title: "Quick Response", sub: "We reply within 24hrs" },
             { icon: "🤝", title: "Bulk Orders", sub: "Custom quantities available" },
           ].map((item) => (
-            <div key={item.title} className="group">
-              <div className="text-3xl mb-4">{item.icon}</div>
-              <h4 className="text-lg font-serif text-[#111810] mb-1 group-hover:text-[#1a4a38] transition-colors">{item.title}</h4>
-              <p className="text-sm text-gray-500 font-light">{item.sub}</p>
-            </div>
+            <motion.div key={item.title} variants={staggerItem} className="group p-2">
+              <div className="text-2xl sm:text-3xl mb-2 sm:mb-4">{item.icon}</div>
+              <h4 className="text-base sm:text-lg font-serif text-[#111810] mb-1 group-hover:text-[#1a4a38] transition-colors">{item.title}</h4>
+              <p className="text-xs sm:text-sm text-gray-500 font-light">{item.sub}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* ── HERITAGE CTA ── */}
-      <section className="relative py-32 px-6 lg:py-40 overflow-hidden flex justify-center items-center bg-white">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:py-40 overflow-hidden flex justify-center items-center bg-white">
         <div className="absolute inset-0 z-0">
-          <img src="/banner.jpg" alt="Dharohar Farm" className="w-full h-full object-cover scale-105" />
+          <Image 
+            src="/banner.webp" 
+            alt="Dharohar Farm" 
+            fill 
+            sizes="100vw"
+            className="object-cover scale-105" 
+          />
           <div className="absolute inset-0 bg-[#0d140a]/50" />
         </div>
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <div className="bg-white/80 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-10 md:p-16 shadow-2xl shadow-black/10">
-            <div className="flex items-center justify-center gap-3 mb-6">
+        <motion.div 
+          className="relative z-10 max-w-3xl mx-auto text-center w-full"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          variants={scaleIn}
+        >
+          <div className="bg-white/85 backdrop-blur-xl border border-white/60 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-2xl shadow-black/10">
+            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
-              <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Interested?</h4>
+              <h4 className="text-[#1a4a38] text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase">Interested?</h4>
               <div className="w-8 h-[1px] bg-[#e2a325]" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#111810] mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif text-[#111810] mb-4 sm:mb-6 leading-tight">
               Get in <span className="text-[#e2a325] italic font-light">Touch</span>
             </h2>
-            <p className="text-gray-600 max-w-lg mx-auto font-light leading-relaxed mb-8">
+            <p className="text-gray-600 max-w-lg mx-auto font-light leading-relaxed mb-6 sm:mb-8 text-xs sm:text-base">
               Have questions about our oils or want to place a bulk order? We&apos;d love to hear from you.
             </p>
-            <Link href="/contact">
-              <PrimaryButton className="px-10 py-4 text-xs tracking-widest shadow-lg shadow-black/5">
-                Enquire Now
-              </PrimaryButton>
-            </Link>
+            <PrimaryButton onClick={() => openEnquiry()} className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center">
+              Enquire Now
+            </PrimaryButton>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <Footer />
@@ -122,32 +166,44 @@ export default function ProductsPage() {
 }
 
 function ProductCard({ product }: { product: Product }) {
+  const { openEnquiry } = useEnquiry();
+
   return (
-    <div className="bg-white p-6 rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 flex flex-col">
+    <motion.div 
+      variants={staggerItem}
+      className="bg-white p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 flex flex-col hover:-translate-y-1"
+    >
       <Link href={`/products/${product.slug}`}>
-        <div className="relative aspect-[4/5] bg-[#fdfaf6] mb-8 flex justify-center items-center overflow-hidden rounded-2xl group-hover:bg-white transition-colors duration-500 cursor-pointer">
-          <img src={product.image} alt={product.title} className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" />
-          <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">{product.badge}</div>
+        <div className="relative aspect-[4/5] bg-[#fdfaf6] mb-5 sm:mb-8 flex justify-center items-center overflow-hidden rounded-2xl group-hover:bg-white transition-colors duration-500 cursor-pointer">
+          <Image 
+            src={product.image} 
+            alt={product.title} 
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" 
+          />
+          <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/85 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">{product.badge}</div>
         </div>
       </Link>
       <Link href={`/products/${product.slug}`}>
-        <h3 className="text-xl lg:text-2xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors cursor-pointer mb-3">{product.title}</h3>
+        <h3 className="text-lg sm:text-xl lg:text-2xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors cursor-pointer mb-2 sm:mb-3">{product.title}</h3>
       </Link>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="flex text-[#e2a325] gap-0.5">{[...Array(5)].map((_, i) => (<Star key={i} size={14} fill="currentColor" />))}</div>
-        <div className="text-sm text-gray-400 font-light">({product.reviews} reviews)</div>
+      <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+        <div className="flex text-[#e2a325] gap-0.5">{[...Array(5)].map((_, i) => (<Star key={i} size={13} fill="currentColor" />))}</div>
+        <div className="text-xs sm:text-sm text-gray-400 font-light">({product.reviews} reviews)</div>
       </div>
-      <p className="text-sm text-gray-500 font-light leading-relaxed mb-6 line-clamp-2">{product.description}</p>
-      <div className="text-sm text-gray-500 mb-8 font-light flex items-center gap-2">
+      <p className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed mb-4 sm:mb-6 line-clamp-2">{product.description}</p>
+      <div className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8 font-light flex items-center gap-2">
         <span>{product.size}</span>
         <span className="w-1 h-1 rounded-full bg-gray-300" />
         <span>Unrefined</span>
       </div>
-      <Link href="/contact" className="mt-auto">
-        <button className="w-full bg-[#111810] hover:bg-[#1a4a38] text-white rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-black/10 hover:shadow-xl hover:-translate-y-0.5 py-4">
-          <MessageCircle size={14} /> Enquire Now
-        </button>
-      </Link>
-    </div>
+      <button 
+        onClick={() => openEnquiry(product.title)}
+        className="mt-auto w-full bg-[#111810] hover:bg-[#1a4a38] text-white rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-black/10 hover:shadow-xl hover:-translate-y-0.5 py-3.5 sm:py-4 cursor-pointer"
+      >
+        <MessageCircle size={14} /> Enquire Now
+      </button>
+    </motion.div>
   );
 }

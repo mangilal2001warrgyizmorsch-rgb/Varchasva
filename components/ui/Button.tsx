@@ -3,8 +3,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-export const PrimaryButton = ({ children, className = "", onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) => (
+export const PrimaryButton = ({ children, className = "", onClick, type = "button" }: { children: React.ReactNode, className?: string, onClick?: () => void, type?: "button" | "submit" | "reset" }) => (
   <motion.button 
+    type={type}
     onClick={onClick}
     whileHover={{ scale: 1.03, backgroundColor: "#fff", color: "#000" }}
     whileTap={{ scale: 0.97 }}
@@ -16,8 +17,9 @@ export const PrimaryButton = ({ children, className = "", onClick }: { children:
   </motion.button>
 );
 
-export const SecondaryButton = ({ children, className = "border-white/30 text-white hover:text-[#e2a325]", onClick }: { children: React.ReactNode, className?: string, onClick?: () => void }) => (
+export const SecondaryButton = ({ children, className = "border-white/30 text-white hover:text-[#e2a325]", onClick, type = "button" }: { children: React.ReactNode, className?: string, onClick?: () => void, type?: "button" | "submit" | "reset" }) => (
   <motion.button 
+    type={type}
     onClick={onClick}
     whileHover={{ scale: 1.03, backgroundColor: "rgba(226, 163, 37, 0.1)", borderColor: "#e2a325" }}
     whileTap={{ scale: 0.97 }}

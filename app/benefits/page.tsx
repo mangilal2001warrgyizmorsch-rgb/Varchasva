@@ -1,110 +1,199 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { ChevronRight, Heart, Brain, Flame, Droplets, Sun, Shield, Leaf, Sparkles } from "lucide-react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { PrimaryButton } from "../../components/ui/Button";
+import { useEnquiry } from "../../context/EnquiryContext";
+import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, staggerItem, heroStagger, heroReveal, viewportOnce } from "../../utils/animations";
 
 const BENEFITS = [
-  { icon: <Heart size={28} strokeWidth={1.5} />, title: "Heart Health", desc: "Cold-pressed oils are rich in monounsaturated and polyunsaturated fats that help lower bad cholesterol (LDL) and support cardiovascular health.", color: "text-rose-500" },
-  { icon: <Brain size={28} strokeWidth={1.5} />, title: "Brain Function", desc: "Omega-3 and Omega-6 fatty acids found in flaxseed and mustard oil support cognitive function, memory, and overall brain health.", color: "text-purple-500" },
-  { icon: <Shield size={28} strokeWidth={1.5} />, title: "Immune Support", desc: "Virgin coconut oil is rich in lauric acid — a powerful medium-chain fatty acid with natural antimicrobial and immune-boosting properties.", color: "text-blue-500" },
-  { icon: <Sun size={28} strokeWidth={1.5} />, title: "Skin & Hair", desc: "Almond and coconut oils are nature&apos;s moisturisers. Rich in Vitamin E, they nourish skin, reduce dark circles, and strengthen hair from root to tip.", color: "text-amber-500" },
-  { icon: <Flame size={28} strokeWidth={1.5} />, title: "Anti-Inflammatory", desc: "Sesame and mustard oils contain natural anti-inflammatory compounds that support joint health, reduce swelling, and ease muscle discomfort.", color: "text-orange-500" },
-  { icon: <Droplets size={28} strokeWidth={1.5} />, title: "Rich in Antioxidants", desc: "Cold-pressing preserves natural antioxidants like Vitamin E, sesamolin, and resveratrol — powerful compounds that fight free radicals and slow aging.", color: "text-teal-500" },
-  { icon: <Leaf size={28} strokeWidth={1.5} />, title: "Zero Chemicals", desc: "Unlike refined oils, our cold-pressed oils undergo zero chemical processing — no hexane extraction, no bleaching, no deodorizing. What you get is 100% pure.", color: "text-green-600" },
-  { icon: <Sparkles size={28} strokeWidth={1.5} />, title: "Nutrient Retention", desc: "Cold-pressing at temperatures below 40°C ensures that heat-sensitive vitamins, minerals, and essential fatty acids remain intact in every drop.", color: "text-indigo-500" },
+  { icon: <Heart size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Heart Health", desc: "Cold-pressed oils are rich in monounsaturated and polyunsaturated fats that help lower bad cholesterol (LDL) and support cardiovascular health." },
+  { icon: <Brain size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Brain Function", desc: "Omega-3 and Omega-6 fatty acids found in flaxseed and mustard oil support cognitive function, memory, and overall brain health." },
+  { icon: <Shield size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Immune Support", desc: "Virgin coconut oil is rich in lauric acid — a powerful medium-chain fatty acid with natural antimicrobial and immune-boosting properties." },
+  { icon: <Sun size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Skin & Hair", desc: "Almond and coconut oils are nature\u0027s moisturisers. Rich in Vitamin E, they nourish skin, reduce dark circles, and strengthen hair from root to tip." },
+  { icon: <Flame size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Anti-Inflammatory", desc: "Sesame and mustard oils contain natural anti-inflammatory compounds that support joint health, reduce swelling, and ease muscle discomfort." },
+  { icon: <Droplets size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Rich in Antioxidants", desc: "Cold-pressing preserves natural antioxidants like Vitamin E, sesamolin, and resveratrol — powerful compounds that fight free radicals and slow aging." },
+  { icon: <Leaf size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Zero Chemicals", desc: "Unlike refined oils, our cold-pressed oils undergo zero chemical processing — no hexane extraction, no bleaching, no deodorizing. What you get is 100% pure." },
+  { icon: <Sparkles size={26} strokeWidth={1.5} className="sm:w-7 sm:h-7" />, title: "Nutrient Retention", desc: "Cold-pressing at temperatures below 40°C ensures that heat-sensitive vitamins, minerals, and essential fatty acids remain intact in every drop." },
 ];
 
 const COMPARISON = [
   { feature: "Extraction Method", cold: "Wooden ghani / Expeller below 40°C", refined: "Chemical solvent (hexane) + high heat" },
   { feature: "Nutrients Preserved", cold: "100% — Vitamins, Omega, Antioxidants", refined: "Most destroyed during processing" },
-  { feature: "Chemical Additives", cold: "Zero", refined: "Bleaching agents, deodorizers" },
+  { feature: "Chemical Additives", cold: "Zero chemicals added", refined: "Bleaching agents, deodorizers" },
   { feature: "Natural Flavour", cold: "Full, rich, characteristic aroma", refined: "Neutral — flavour stripped away" },
-  { feature: "Colour", cold: "Natural golden/amber", refined: "Artificially clear/pale" },
+  { feature: "Colour", cold: "Natural golden / amber", refined: "Artificially clear / pale" },
   { feature: "Shelf Life", cold: "6–8 months (natural)", refined: "12+ months (preservatives)" },
   { feature: "Health Impact", cold: "Heart-healthy, anti-inflammatory", refined: "Trans fats, inflammation risk" },
 ];
 
 export default function BenefitsPage() {
+  const { openEnquiry } = useEnquiry();
+
   return (
     <div className="bg-[#1a1c17] text-[#f4f2eb] min-h-screen overflow-hidden font-sans">
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-40 pb-32 px-6 lg:px-24 bg-[#fdfaf6] overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-8 font-light">
+      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-64 sm:w-80 md:w-[400px] h-64 sm:h-80 md:h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
+        <motion.div 
+          className="max-w-7xl mx-auto relative z-10"
+          initial="hidden"
+          animate="visible"
+          variants={heroStagger}
+        >
+          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Benefits</span>
-          </div>
-          <div className="flex items-center gap-3 mb-6">
+          </motion.div>
+          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-4 sm:mb-6">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Why Cold-Pressed</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-6">Health Benefits</h1>
-          <p className="text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
+          </motion.div>
+          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Health Benefits</motion.h1>
+          <motion.p variants={heroReveal} className="text-sm sm:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
             Discover why cold-pressed oils are the healthier, more natural choice for your kitchen and your wellbeing.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* BENEFITS GRID */}
-      <section className="bg-white py-24 px-6 lg:px-24">
+      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >
             {BENEFITS.map((b) => (
-              <div key={b.title} className="bg-white p-8 rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
-                <div className="w-14 h-14 mb-6 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">{b.icon}</div>
-                <h4 className="text-lg font-serif text-[#111810] mb-3 group-hover:text-[#1a4a38] transition-colors">{b.title}</h4>
-                <p className="text-sm text-gray-500 font-light leading-relaxed">{b.desc}</p>
-              </div>
+              <motion.div key={b.title} variants={staggerItem} className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mb-4 sm:mb-6 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">{b.icon}</div>
+                <h4 className="text-base sm:text-lg font-serif text-[#111810] mb-2 sm:mb-3 group-hover:text-[#1a4a38] transition-colors">{b.title}</h4>
+                <p className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed">{b.desc}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* LIFESTYLE BANNER */}
+      <section className="bg-white pb-16 sm:pb-24 px-4 sm:px-8 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="w-full aspect-[4/3] md:aspect-[21/9] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-gray-100 shadow-xl shadow-black/5 relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
+            <Image 
+              src="/benefits_healthy_cooking.webp" 
+              alt="Healthy Lifestyle Cooking" 
+              fill
+              sizes="100vw"
+              className="object-cover" 
+            />
+          </motion.div>
         </div>
       </section>
 
       {/* COMPARISON TABLE */}
-      <section className="bg-[#fdfaf6] py-24 px-6 lg:px-24">
+      <section className="bg-[#fdfaf6] py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-6">
+          <motion.div 
+            className="text-center mb-10 sm:mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
+            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
               <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">The Difference</h4>
               <div className="w-8 h-[1px] bg-[#e2a325]" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#111810]">Cold-Pressed vs Refined</h2>
-          </div>
-          <div className="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-xl shadow-black/5">
-            <div className="grid grid-cols-3 bg-[#111810] text-white">
-              <div className="p-5 text-[10px] font-bold uppercase tracking-widest">Feature</div>
-              <div className="p-5 text-[10px] font-bold uppercase tracking-widest text-[#e2a325]">Cold-Pressed</div>
-              <div className="p-5 text-[10px] font-bold uppercase tracking-widest text-gray-400">Refined</div>
-            </div>
-            {COMPARISON.map((row, i) => (
-              <div key={row.feature} className={`grid grid-cols-3 ${i < COMPARISON.length - 1 ? "border-b border-gray-100" : ""}`}>
-                <div className="p-5 text-sm font-medium text-[#111810]">{row.feature}</div>
-                <div className="p-5 text-sm text-[#1a4a38] font-light">{row.cold}</div>
-                <div className="p-5 text-sm text-gray-400 font-light">{row.refined}</div>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810]">Cold-Pressed vs Refined</h2>
+          </motion.div>
+          
+          {/* Responsive Comparison Table Container */}
+          <motion.div 
+            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 overflow-hidden shadow-xl shadow-black/5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInUp}
+          >
+            <div className="overflow-x-auto">
+              <div className="min-w-[500px]">
+                <div className="grid grid-cols-3 bg-[#111810] text-white">
+                  <div className="p-3.5 sm:p-5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest">Feature</div>
+                  <div className="p-3.5 sm:p-5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#e2a325]">Cold-Pressed</div>
+                  <div className="p-3.5 sm:p-5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-gray-400">Refined</div>
+                </div>
+                {COMPARISON.map((row, i) => (
+                  <motion.div 
+                    key={row.feature} 
+                    className={`grid grid-cols-3 ${i < COMPARISON.length - 1 ? "border-b border-gray-100" : ""}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.06 }}
+                  >
+                    <div className="p-3.5 sm:p-5 text-xs sm:text-sm font-medium text-[#111810]">{row.feature}</div>
+                    <div className="p-3.5 sm:p-5 text-xs sm:text-sm text-[#1a4a38] font-light">{row.cold}</div>
+                    <div className="p-3.5 sm:p-5 text-xs sm:text-sm text-gray-400 font-light">{row.refined}</div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-white py-24 px-6 lg:px-24">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-serif text-[#111810] mb-6">Ready to Make the Switch?</h2>
-          <p className="text-gray-600 font-light leading-relaxed mb-10 max-w-lg mx-auto">Join thousands of families who have returned to pure, cold-pressed oils. Your body will thank you.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/products"><PrimaryButton className="px-10 py-4 text-xs tracking-widest shadow-lg shadow-black/5">Explore Our Oils</PrimaryButton></Link>
-            <Link href="/contact"><button className="px-10 py-4 text-xs font-bold uppercase tracking-widest border-2 border-[#111810] text-[#111810] rounded-lg hover:bg-[#111810] hover:text-white transition-all duration-300">Enquire Now</button></Link>
-          </div>
+      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 lg:px-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInLeft}
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810] mb-4 sm:mb-6">Ready to Make the Switch?</h2>
+            <p className="text-gray-600 font-light leading-relaxed mb-6 sm:mb-10 text-xs sm:text-base">Join thousands of families who have returned to pure, cold-pressed oils. Experience true natural flavor and wellbeing — your body will thank you.</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Link href="/products" className="w-full sm:w-auto"><PrimaryButton className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center">Explore Our Oils</PrimaryButton></Link>
+              <button onClick={() => openEnquiry()} className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs font-bold uppercase tracking-widest border-2 border-[#111810] text-[#111810] rounded-full hover:bg-[#111810] hover:text-white transition-all duration-300 cursor-pointer">
+                Enquire Now
+              </button>
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            className="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-gray-100 shadow-xl shadow-black/5 relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={fadeInRight}
+          >
+            <Image 
+              src="/benefits_wellness_composition.webp" 
+              alt="Pure Wellness Composition" 
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover" 
+            />
+          </motion.div>
         </div>
       </section>
 

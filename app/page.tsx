@@ -11,7 +11,7 @@ import InstagramSection from "../components/sections/home/InstagramSection";
 
 export default function PremiumEdibleOilHomepage() {
   return (
-    <div className="bg-[#1a1c17] text-[#f4f2eb] min-h-screen overflow-hidden font-sans">
+    <div className="bg-[#1a1c17] text-[#f4f2eb] min-h-screen overflow-clip font-sans">
       <Header />
       <HeroSection />
       <PromiseSection />

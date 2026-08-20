@@ -5,6 +5,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PrimaryButton, SecondaryButton } from "../../ui/Button";
+import { useEnquiry } from "../../../context/EnquiryContext";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +13,7 @@ if (typeof window !== "undefined") {
 
 const FRAME_COUNT = 300;
 const currentFrame = (index: number) => 
-  `/hero-section-images/ezgif-frame-${index.toString().padStart(3, "0")}.jpg`;
+  `/hero-section-images/ezgif-frame-${index.toString().padStart(3, "0")}.webp`;
 
 const scenes = [
   {
@@ -46,6 +47,7 @@ const scenes = [
 ];
 
 export default function HeroSection() {
+  const { openEnquiry } = useEnquiry();
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -197,46 +199,52 @@ export default function HeroSection() {
 
   return (
     <section ref={containerRef} className="relative bg-[#0d140a] min-h-screen">
-      <div ref={loadingOverlayRef} className="absolute inset-0 z-50 flex items-center justify-center bg-[#0d140a]">
-        <div className="flex flex-col items-center gap-4">
+      <div ref={loadingOverlayRef} className="absolute inset-0 z-50 flex items-center justify-center bg-[#0d140a] p-4">
+        <div className="flex flex-col items-center gap-4 text-center">
           <div className="w-8 h-8 border-2 border-[#e2a325] border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-[#e2a325] text-xs font-mono tracking-widest uppercase">Initializing Cinematic Experience</span>
+          <span className="text-[#e2a325] text-[10px] sm:text-xs font-mono tracking-widest uppercase">Initializing Cinematic Experience</span>
         </div>
       </div>
 
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 pointer-events-none" />
         
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d140a] via-transparent to-black/20 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d140a] via-transparent to-black/30 z-10 pointer-events-none" />
 
-        <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-4xl">
+        <div className="absolute inset-0 z-20 flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-24 max-w-4xl">
           {scenes.map((scene, idx) => (
             <div 
               key={idx} 
               ref={el => { sceneRefs.current[idx] = el; }} 
-              className="absolute left-6 md:left-12 lg:left-24 max-w-2xl opacity-0 translate-y-[30px]"
+              className="absolute left-4 sm:left-8 md:left-12 lg:left-24 right-4 sm:right-auto max-w-xl lg:max-w-2xl opacity-0 translate-y-[30px]"
             >
-              <p className="text-[#e2a325] text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-4 md:mb-6 flex items-center gap-3">
+              <p className="text-[#e2a325] text-[9px] sm:text-[10px] md:text-xs font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-3 sm:mb-4 md:mb-6 flex items-center gap-2 sm:gap-3">
                 {scene.eyebrow}
               </p>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] tracking-tight mb-4 sm:mb-6">
                 {scene.heading}
               </h2>
-              <p className="text-sm md:text-lg lg:text-xl text-white/90 max-w-lg mb-8 font-light leading-relaxed">
+              <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-white/90 max-w-lg mb-6 sm:mb-8 font-light leading-relaxed">
                 {scene.description}
               </p>
               
               {(scene.cta1 || scene.cta2) && (
-                <div className="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-5 items-start sm:items-center pointer-events-auto">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 items-stretch sm:items-center pointer-events-auto">
                   {scene.cta1 && (
-                    <Link href={scene.cta1 === "Enquire Now" ? "/contact" : "/products"}>
-                      <PrimaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs">{scene.cta1}</PrimaryButton>
-                    </Link>
+                    scene.cta1 === "Enquire Now" ? (
+                      <PrimaryButton onClick={() => openEnquiry()} className="w-full sm:w-auto px-6 md:px-8 py-3 sm:py-3.5 md:py-4 text-[10px] md:text-xs text-center justify-center">
+                        {scene.cta1}
+                      </PrimaryButton>
+                    ) : (
+                      <Link href="/products" className="w-full sm:w-auto">
+                        <PrimaryButton className="w-full sm:w-auto px-6 md:px-8 py-3 sm:py-3.5 md:py-4 text-[10px] md:text-xs text-center justify-center">{scene.cta1}</PrimaryButton>
+                      </Link>
+                    )
                   )}
                   {scene.cta2 && (
-                    <Link href="/process">
-                      <SecondaryButton className="px-6 md:px-8 py-3.5 md:py-4 text-[10px] md:text-xs border-white/30 text-white hover:text-[#e2a325]">{scene.cta2}</SecondaryButton>
+                    <Link href="/process" className="w-full sm:w-auto">
+                      <SecondaryButton className="w-full sm:w-auto px-6 md:px-8 py-3 sm:py-3.5 md:py-4 text-[10px] md:text-xs border-white/30 text-white hover:text-[#e2a325] text-center justify-center">{scene.cta2}</SecondaryButton>
                     </Link>
                   )}
                 </div>
@@ -245,9 +253,9 @@ export default function HeroSection() {
           ))}
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 text-white/80">
-          <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-bold">Scroll To Explore</span>
-          <div className="w-5 h-8 md:w-6 md:h-9 border border-white/50 rounded-full flex justify-center p-1">
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 sm:gap-3 text-white/80">
+          <span className="text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-bold">Scroll To Explore</span>
+          <div className="w-4 h-7 sm:w-5 sm:h-8 md:w-6 md:h-9 border border-white/50 rounded-full flex justify-center p-1">
             <div className="w-1 h-1.5 bg-white rounded-full animate-bounce"></div>
           </div>
         </div>

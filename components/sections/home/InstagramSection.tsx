@@ -1,65 +1,81 @@
+"use client";
 import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Instagram } from '../../ui/Icons';
 import { SecondaryButton } from '../../ui/Button';
 import { IMAGES } from '../../../constants/images';
+import { fadeInUp, staggerContainer, staggerItem, viewportOnce } from '../../../utils/animations';
+
+const igImages = [
+  { src: IMAGES.ig1, alt: "Oil being poured on salad" },
+  { src: IMAGES.ig2, alt: "Mustard flowers field" },
+  { src: IMAGES.ig3, alt: "Product bottle" },
+  { src: IMAGES.ig4, alt: "Heritage woman" },
+  { src: IMAGES.ig5, alt: "Wooden spoon with seeds" },
+  { src: IMAGES.ig6, alt: "Indian dish with oil" },
+];
 
 export default function InstagramSection() {
   return (
-    <section className="py-24 bg-white w-full border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 lg:px-24 mb-16 flex flex-col md:flex-row justify-between items-end gap-8">
+    <section className="py-16 sm:py-24 bg-white w-full border-t border-gray-100">
+      <motion.div 
+        className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 mb-10 sm:mb-16 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6"
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        variants={fadeInUp}
+      >
         <div>
-          <div className="flex items-center gap-3 mb-6">
-            <Instagram size={20} className="text-[#1a4a38]" />
+          <div className="flex items-center gap-3 mb-3 sm:mb-6">
+            <Instagram size={18} className="text-[#1a4a38]" />
             <div className="w-8 h-[1px] bg-[#e2a325]"></div>
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">@dharoharoils</h4>
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif text-[#111810] leading-tight">Join Our Community</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#111810] leading-tight">Join Our Community</h2>
         </div>
-        <SecondaryButton className="px-8 py-4 text-xs tracking-widest border-[#111810]/20 text-[#111810] hover:border-[#1a4a38] hover:text-[#1a4a38] shadow-sm hover:shadow-md transition-all duration-300">
-          Follow Us
-        </SecondaryButton>
-      </div>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+          <SecondaryButton className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-xs tracking-widest border-[#111810]/20 text-[#111810] hover:border-[#1a4a38] hover:text-[#1a4a38] shadow-sm hover:shadow-md transition-all duration-300 text-center justify-center">
+            Follow Us
+          </SecondaryButton>
+        </a>
+      </motion.div>
       
-      {/* Scrollable grid for mobile, static grid for desktop */}
-      <div className="w-full overflow-x-auto pb-12 hide-scrollbar px-6 lg:px-24 max-w-[1600px] mx-auto">
-        <div className="flex md:grid md:grid-cols-6 gap-4 min-w-[1200px] md:min-w-0">
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig1} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig2} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig3} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig4} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig5} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-          <div className="w-48 md:w-auto aspect-square relative group overflow-hidden cursor-pointer rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500">
-            <img src={IMAGES.ig6} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-            <div className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-              <Instagram className="text-[#1a4a38] w-8 h-8 scale-50 group-hover:scale-100 transition-transform duration-500 delay-100" />
-            </div>
-          </div>
-        </div>
+      {/* Responsive Grid for all devices */}
+      <div className="w-full px-4 sm:px-8 lg:px-24 max-w-7xl mx-auto">
+        <motion.div 
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
+          {igImages.map((img, i) => (
+            <motion.div 
+              key={i} 
+              variants={staggerItem}
+              className="group cursor-pointer relative overflow-hidden rounded-[1.2rem] sm:rounded-[1.5rem] shadow-sm"
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="aspect-square overflow-hidden bg-gray-50 relative">
+                <Image 
+                  src={img.src} 
+                  alt={img.alt} 
+                  fill 
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" 
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-3 sm:p-4">
+                <div className="flex items-center gap-1.5 text-white text-[10px] sm:text-xs font-medium">
+                  <Instagram size={12} className="sm:w-3.5 sm:h-3.5" />
+                  <span className="truncate">@dharoharoils</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
