@@ -5,6 +5,8 @@ import { X, Send, CheckCircle2, Phone, MessageSquare, ChevronDown } from "lucide
 import { PRODUCTS } from "../../constants/products";
 import { PrimaryButton } from "./Button";
 
+import toast from "react-hot-toast";
+
 interface EnquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -18,6 +20,7 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
     email: "",
     product: "",
     quantity: "1 Litre",
+    becomeDealer: false,
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -47,9 +50,27 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        toast.error("Failed to submit enquiry. Please try again.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -60,6 +81,7 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
       email: "",
       product: "",
       quantity: "1 Litre",
+      becomeDealer: false,
       message: "",
     });
     onClose();
@@ -124,7 +146,7 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
                     Enquiry Received!
                   </h4>
                   <p className="text-xs sm:text-sm text-gray-600 font-light max-w-sm mx-auto mb-6 sm:mb-8 leading-relaxed">
-                    Thank you for your interest in Dharohar Oils. We have received your inquiry and will contact you shortly with pricing and availability.
+                    Thank you for your interest in Varchasva Oils. We have received your inquiry and will contact you shortly with pricing and availability.
                   </p>
                   <PrimaryButton onClick={handleReset} className="px-8 py-3 text-xs tracking-widest">
                     Done
@@ -156,7 +178,7 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+91 99999 99999"
+                        placeholder="+91 89499 44620"
                         className="w-full bg-white border border-gray-200 rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-base sm:text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition font-light shadow-sm placeholder:text-gray-400"
                       />
                     </div>
@@ -243,12 +265,12 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
                       Required Quantity / Size
                     </label>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                      {["250 ml", "500 ml", "1 Litre", "5 Litres", "Bulk (15L+)"].map((qty) => (
+                      {["1 Litre", "5 Litres", "15 Litres"].map((qty) => (
                         <button
                           key={qty}
                           type="button"
                           onClick={() => setFormData({ ...formData, quantity: qty })}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border cursor-pointer ${
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border cursor-pointer ${
                             formData.quantity === qty
                               ? "bg-[#111810] text-white border-[#111810] shadow-sm"
                               : "bg-white text-gray-600 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"
@@ -273,13 +295,40 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
                     />
                   </div>
 
+                  {/* Become a Dealer Checkbox */}
+                  <label className="flex items-center gap-3 p-3 bg-[#1a4a38]/5 rounded-xl border border-[#1a4a38]/15 cursor-pointer hover:bg-[#1a4a38]/10 transition-colors select-none">
+                    <input
+                      type="checkbox"
+                      checked={formData.becomeDealer}
+                      onChange={(e) => setFormData({ ...formData, becomeDealer: e.target.checked })}
+                      className="w-4 h-4 rounded border-gray-300 text-[#1a4a38] focus:ring-[#1a4a38] cursor-pointer accent-[#1a4a38]"
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-xs sm:text-sm font-medium text-[#111810]">
+                        Become a Dealer / Distributorship
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] text-gray-500 font-light">
+                        Interested in wholesale distribution or retail partnership
+                      </span>
+                    </div>
+                  </label>
+
                   <div className="pt-2 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3">
-                    <PrimaryButton className="w-full sm:flex-1 py-3.5 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center">
-                      <Send size={13} className="mr-1.5" /> Submit Enquiry
+                    <PrimaryButton 
+                      type="submit"
+                      className={`w-full sm:flex-1 py-3.5 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={isSubmitting}
+                    >
+                      <Send size={13} className="mr-1.5" /> 
+                      {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                     </PrimaryButton>
 
                     <a
-                      href="https://wa.me/919999999999?text=Hello%20Dharohar%20Team,%20I%20would%20like%20to%20enquire%20about%20your%20cold-pressed%20oils."
+                      href={`https://wa.me/918949944620?text=${encodeURIComponent(
+                        formData.becomeDealer
+                          ? "Hello Varchasva Team, I am interested in becoming a dealer / distributor for your cold-pressed oils."
+                          : "Hello Varchasva Team, I would like to enquire about your cold-pressed oils."
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full sm:w-auto"

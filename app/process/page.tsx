@@ -32,7 +32,7 @@ const STEPS: StepItem[] = [
     highlight: "100% Non-GMO Certified",
     metric: "0% Adulteration",
     icon: Sparkles,
-    image: "/process_seed_selection.webp"
+    image: "/process/process_seed_selection.webp"
   },
   {
     num: "02",
@@ -43,18 +43,18 @@ const STEPS: StepItem[] = [
     highlight: "Natural Moisture Balance",
     metric: "< 7% Optimal Moisture",
     icon: Sun,
-    image: "/process_sun_drying.webp"
+    image: "/process/process_sun_drying.webp"
   },
   {
     num: "03",
     tag: "Slow Craftsmanship",
-    title: "Traditional Wooden Ghani",
+    title: "Traditional kachi ghani",
     subtitle: "Cold Extraction Below 40°C",
     desc: "Extracted in an authentic slow-turning Vaghai wooden pestle. Rotating at low RPMs prevents friction heat, safeguarding all live enzymes, antioxidants, Vitamin E, and authentic nutty aroma.",
     highlight: "Real Wood-Pressed (Kachi Ghani)",
     metric: "< 40°C True Cold Press",
     icon: Droplets,
-    image: "/process_cold_pressing.webp"
+    image: "/process/promise_new_1.webp"
   },
   {
     num: "04",
@@ -65,7 +65,7 @@ const STEPS: StepItem[] = [
     highlight: "Unbleached & Unrefined",
     metric: "48-72h Gravity Settling",
     icon: Factory,
-    image: "/process_natural_settling.webp"
+    image: "/process/process_natural_settling.webp"
   },
   {
     num: "05",
@@ -76,7 +76,7 @@ const STEPS: StepItem[] = [
     highlight: "Batch-Tested Purity",
     metric: "Zero Heavy Metals",
     icon: ShieldCheck,
-    image: "/process_quality_testing.webp"
+    image: "/process/process_quality_testing.webp"
   },
   {
     num: "06",
@@ -87,7 +87,7 @@ const STEPS: StepItem[] = [
     highlight: "Traceable Batch QR",
     metric: "100% Recyclable Glass",
     icon: Award,
-    image: "/process_bottling_sealing.webp"
+    image: "/process/promise_new_2.webp"
   },
 ];
 
@@ -215,7 +215,7 @@ export default function ProcessPage() {
             {/* Top Minimal Step Progress Indicator Bar */}
             <div className="flex items-center justify-between pb-8 mb-4 border-b border-[#e2a325]/15">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#1a4a38]">Dharohar Quality Protocol</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#1a4a38]">Varchasva Quality Protocol</span>
                 <span className="text-gray-300">•</span>
                 <span className="text-xs text-gray-500 font-serif italic">Step {activeStep + 1} of {STEPS.length}</span>
               </div>
@@ -416,8 +416,8 @@ export default function ProcessPage() {
       </section>
 
       {/* MOBILE & TABLET ADAPTIVE LAYOUT (Clean luxury cards) */}
-      <section className="bg-[#fdfaf6] py-16 px-4 sm:px-8 block lg:hidden border-t border-[#e2a325]/15">
-        <div className="max-w-xl mx-auto space-y-12">
+      <section className="bg-[#fdfaf6] py-10 sm:py-14 px-4 sm:px-8 block lg:hidden border-t border-[#e2a325]/15">
+        <div className="max-w-xl mx-auto space-y-6 sm:space-y-8">
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
@@ -427,7 +427,7 @@ export default function ProcessPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportOnce}
                 transition={{ duration: 0.6 }}
-                className="bg-[#fdfaf6] rounded-3xl p-5 sm:p-6 border border-gray-200/80 shadow-md space-y-5"
+                className="bg-[#fdfaf6] rounded-3xl p-5 sm:p-6 border border-gray-200/80 shadow-md space-y-4"
               >
                 {/* Visual Card with Badge */}
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-inner bg-gray-900">
@@ -480,24 +480,24 @@ export default function ProcessPage() {
 
       {/* CTA SECTION */}
       <motion.section 
-        className="bg-[#fbf8f2] py-20 sm:py-28 px-4 sm:px-8 lg:px-24 border-t border-[#e2a325]/15 relative z-20"
+        className="bg-[#fbf8f2] py-10 sm:py-14 md:py-16 px-4 sm:px-8 lg:px-24 border-t border-[#e2a325]/15 relative z-20"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={fadeInUp}
       >
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1a4a38]/5 border border-[#1a4a38]/10 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1a4a38]/5 border border-[#1a4a38]/10 mb-4 sm:mb-6">
             <Sparkles size={13} className="text-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Taste The Heritage</h4>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#111810] mb-6">Experience True Cold-Pressed Purity</h2>
-          <p className="text-gray-600 font-light leading-relaxed mb-8 max-w-xl mx-auto text-sm sm:text-base">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-3 sm:mb-4">Experience True Cold-Pressed Purity</h2>
+          <p className="text-gray-600 font-light leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto text-xs sm:text-base">
             Ready to switch to unadulterated edible oils crafted the traditional way? Request wholesale or retail batch allocations today.
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
             <PrimaryButton onClick={() => openEnquiry()} className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs tracking-widest shadow-xl shadow-[#1a4a38]/10 text-center justify-center">
               Enquire For Batches
             </PrimaryButton>

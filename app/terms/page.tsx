@@ -10,29 +10,29 @@ export default function TermsPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-12 sm:pb-20 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
         <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Terms of Service</span>
           </div>
-          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+          <div className="flex items-center gap-3 mb-3 sm:mb-4">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Legal</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Terms of Service</h1>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#111810] leading-tight mb-3 sm:mb-4">Terms of Service</h1>
           <p className="text-xs sm:text-sm text-gray-400 font-light">Last updated: August 2026</p>
         </div>
       </section>
 
       {/* CONTENT */}
-      <section className="bg-white py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24">
+      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10">
           <TermsSection title="Agreement to Terms">
-            <p>By accessing and using the Dharohar Natural Oils website (dharohar.com), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
+            <p>By accessing and using the Varchasva Natural Oils website (varchasva.com), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
           </TermsSection>
 
           <TermsSection title="Products & Orders">
@@ -46,7 +46,7 @@ export default function TermsPage() {
           </TermsSection>
 
           <TermsSection title="Delivery">
-            <p>We aim to deliver within 3–7 business days for standard orders. Delivery timelines are estimates and not guaranteed. Dharohar is not responsible for delays caused by courier partners, natural events, or circumstances beyond our control.</p>
+            <p>We aim to deliver within 3–7 business days for standard orders. Delivery timelines are estimates and not guaranteed. Varchasva is not responsible for delays caused by courier partners, natural events, or circumstances beyond our control.</p>
           </TermsSection>
 
           <TermsSection title="Returns & Refunds">
@@ -54,11 +54,11 @@ export default function TermsPage() {
           </TermsSection>
 
           <TermsSection title="Intellectual Property">
-            <p>All content on this website — including text, images, logos, and design — is the property of Dharohar Natural Oils and is protected by copyright and trademark laws. You may not reproduce, distribute, or use our content without written permission.</p>
+            <p>All content on this website — including text, images, logos, and design — is the property of Varchasva Natural Oils and is protected by copyright and trademark laws. You may not reproduce, distribute, or use our content without written permission.</p>
           </TermsSection>
 
           <TermsSection title="Limitation of Liability">
-            <p>Dharohar Natural Oils provides this website and its content on an &quot;as is&quot; basis. We make no warranties regarding the accuracy or completeness of information. Our liability for any claims arising from your use of our products or website is limited to the value of the product purchased.</p>
+            <p>Varchasva Natural Oils provides this website and its content on an &quot;as is&quot; basis. We make no warranties regarding the accuracy or completeness of information. Our liability for any claims arising from your use of our products or website is limited to the value of the product purchased.</p>
           </TermsSection>
 
           <TermsSection title="Governing Law">
@@ -71,8 +71,8 @@ export default function TermsPage() {
 
           <TermsSection title="Contact">
             <p>For questions about these terms, please contact us at:</p>
-            <p><strong>Email:</strong> legal@dharohar.com</p>
-            <p><strong>Phone:</strong> +91 99999 99999</p>
+            <p><strong>Email:</strong> legal@varchasva.com</p>
+            <p><strong>Phone:</strong> +91 89499 44620</p>
           </TermsSection>
         </div>
       </section>

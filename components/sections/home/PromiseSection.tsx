@@ -3,15 +3,15 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Leaf, Shield, Heart } from 'lucide-react';
+import { Leaf, Shield, Heart, Activity } from 'lucide-react';
 import { PrimaryButton } from '../../ui/Button';
 import { IMAGES } from '../../../constants/images';
 import { fadeInUp, fadeInLeft, fadeInRight, scaleIn, staggerContainer, staggerItem, viewportOnce } from '../../../utils/animations';
 
 export default function PromiseSection() {
   return (
-    <section className="bg-white text-[#111810] py-16 sm:py-24 md:py-32 w-full overflow-hidden">
-      <div className="px-4 sm:px-8 md:px-16 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section id="promise-section" className="bg-white text-[#111810] py-10 sm:py-14 md:py-16 w-full overflow-hidden">
+      <div className="px-4 sm:px-8 md:px-16 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
         {/* Text Content */}
         <motion.div 
           className="order-2 lg:order-1"
@@ -20,22 +20,22 @@ export default function PromiseSection() {
           viewport={viewportOnce}
           variants={fadeInLeft}
         >
-          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+          <div className="flex items-center gap-3 mb-3 sm:mb-4">
             <div className="w-8 h-[1px] bg-[#e2a325]"></div>
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Our Promise</h4>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif text-[#111810] mb-6 sm:mb-8 leading-[1.15] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-[#111810] mb-4 sm:mb-6 leading-[1.15] tracking-tight">
             From the Soil.<br/>
             <span className="text-gray-400 italic font-light">Not the Factory.</span>
           </h2>
           
-          <p className="text-gray-600 text-base sm:text-lg lg:text-xl mb-8 sm:mb-12 max-w-lg leading-relaxed font-light">
+          <p className="text-gray-600 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 max-w-lg leading-relaxed font-light">
             We preserve the natural character of every seed through slow, traditional cold-press extraction. Pure wellness, delivered straight to your home.
           </p>
           
           <motion.div 
-            className="flex flex-col gap-6 sm:gap-8 mb-10 sm:mb-14"
+            className="flex flex-col gap-4 sm:gap-6 mb-8 sm:mb-10"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -68,6 +68,16 @@ export default function PromiseSection() {
               <div>
                 <h5 className="text-base sm:text-lg font-serif text-[#111810] mb-1 group-hover:text-[#1a4a38] transition-colors">Heart Healthy</h5>
                 <p className="text-xs sm:text-sm text-gray-500 font-light">Rich in good fats and natural antioxidants.</p>
+              </div>
+            </motion.div>
+
+            <motion.div variants={staggerItem} className="flex items-start gap-4 sm:gap-5 group">
+              <div className="p-3 sm:p-4 bg-[#fdfaf6] rounded-2xl text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 shadow-sm border border-gray-100 flex-shrink-0">
+                <Activity size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />
+              </div>
+              <div>
+                <h5 className="text-base sm:text-lg font-serif text-[#111810] mb-1 group-hover:text-[#1a4a38] transition-colors">Cholesterol Control</h5>
+                <p className="text-xs sm:text-sm text-gray-500 font-light">Helps maintain healthy cholesterol levels naturally.</p>
               </div>
             </motion.div>
           </motion.div>

@@ -14,9 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dharohar | Pure Cold-Pressed Natural Oils",
+  title: "Varchasva | Pure Cold-Pressed Natural Oils",
   description: "Reviving ancient wellness through 100% pure, cold-pressed oils. Honestly crafted from seed to bottle.",
 };
+
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,9 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#faf3e0] text-[#171717]">
         <EnquiryProvider>
           {children}
+          <Toaster position="top-right" />
         </EnquiryProvider>
       </body>
     </html>

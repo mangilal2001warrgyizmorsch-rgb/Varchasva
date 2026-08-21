@@ -22,7 +22,7 @@ export default function ProductsPage() {
       <Header />
 
       {/* ── HERO BANNER ── */}
-      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-24 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-12 md:pb-14 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
         <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-64 sm:w-80 md:w-[400px] h-64 sm:h-80 md:h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
         <motion.div 
@@ -31,18 +31,18 @@ export default function ProductsPage() {
           animate="visible"
           variants={heroStagger}
         >
-          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
+          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Our Collection</span>
           </motion.div>
-          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-4 sm:mb-6">
+          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-3 sm:mb-4">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Our Oils</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
           </motion.div>
-          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Our Collection</motion.h1>
-          <motion.p variants={heroReveal} className="text-sm sm:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
+          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#111810] leading-tight mb-3 sm:mb-4">Our Collection</motion.h1>
+          <motion.p variants={heroReveal} className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl font-light leading-relaxed">
             Every bottle is cold-pressed from hand-selected seeds, preserving nature&apos;s goodness in its purest form.
           </motion.p>
         </motion.div>
@@ -55,11 +55,11 @@ export default function ProductsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 py-3.5 sm:py-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 py-2.5 sm:py-3.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             {CATEGORIES.map((cat) => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest transition-all duration-300 border cursor-pointer flex-shrink-0 ${activeCategory === cat ? "bg-[#111810] text-white border-[#111810] shadow-md shadow-black/10" : "bg-transparent text-gray-500 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"}`}>
+                className={`px-4 sm:px-5 py-2 sm:py-2 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider sm:tracking-widest transition-all duration-300 border cursor-pointer flex-shrink-0 ${activeCategory === cat ? "bg-[#111810] text-white border-[#111810] shadow-md shadow-black/10" : "bg-transparent text-gray-500 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"}`}>
                 {cat}
               </button>
             ))}
@@ -72,12 +72,12 @@ export default function ProductsPage() {
       </motion.section>
 
       {/* ── PRODUCT GRID ── */}
-      <section className="py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24 bg-white">
+      <section className="py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 bg-white">
         <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div 
               key={activeCategory}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-6"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
@@ -88,7 +88,7 @@ export default function ProductsPage() {
           </AnimatePresence>
           {filtered.length === 0 && (
             <motion.div 
-              className="text-center py-16 sm:py-20"
+              className="text-center py-12 sm:py-16"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
@@ -99,9 +99,9 @@ export default function ProductsPage() {
       </section>
 
       {/* ── PROMISE STRIP ── */}
-      <section className="bg-[#fdfaf6] py-12 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+      <section className="bg-[#fdfaf6] py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
         <motion.div 
-          className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-center"
+          className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -111,10 +111,10 @@ export default function ProductsPage() {
             { icon: "🌿", title: "100% Natural", sub: "No additives ever" },
             { icon: "❄️", title: "Cold-Pressed", sub: "Below 40°C extraction" },
             { icon: "📞", title: "Quick Response", sub: "We reply within 24hrs" },
-            { icon: "🤝", title: "Bulk Orders", sub: "Custom quantities available" },
+            { icon: "🤝", title: "Bulk Orders", sub: "1L, 5L & 15L Available" },
           ].map((item) => (
             <motion.div key={item.title} variants={staggerItem} className="group p-2">
-              <div className="text-2xl sm:text-3xl mb-2 sm:mb-4">{item.icon}</div>
+              <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">{item.icon}</div>
               <h4 className="text-base sm:text-lg font-serif text-[#111810] mb-1 group-hover:text-[#1a4a38] transition-colors">{item.title}</h4>
               <p className="text-xs sm:text-sm text-gray-500 font-light">{item.sub}</p>
             </motion.div>
@@ -123,11 +123,11 @@ export default function ProductsPage() {
       </section>
 
       {/* ── HERITAGE CTA ── */}
-      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:py-40 overflow-hidden flex justify-center items-center bg-white">
+      <section className="relative py-10 sm:py-14 md:py-16 px-4 sm:px-6 overflow-hidden flex justify-center items-center bg-white">
         <div className="absolute inset-0 z-0">
           <Image 
-            src="/banner.webp" 
-            alt="Dharohar Farm" 
+            src="/home/banner.webp" 
+            alt="Varchasva Farm" 
             fill 
             sizes="100vw"
             className="object-cover scale-105" 
@@ -141,16 +141,16 @@ export default function ProductsPage() {
           viewport={viewportOnce}
           variants={scaleIn}
         >
-          <div className="bg-white/85 backdrop-blur-xl border border-white/60 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-2xl shadow-black/10">
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+          <div className="bg-white/85 backdrop-blur-xl border border-white/60 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-2xl shadow-black/10">
+            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
               <h4 className="text-[#1a4a38] text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase">Interested?</h4>
               <div className="w-8 h-[1px] bg-[#e2a325]" />
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif text-[#111810] mb-4 sm:mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-3 sm:mb-4 leading-tight">
               Get in <span className="text-[#e2a325] italic font-light">Touch</span>
             </h2>
-            <p className="text-gray-600 max-w-lg mx-auto font-light leading-relaxed mb-6 sm:mb-8 text-xs sm:text-base">
+            <p className="text-gray-600 max-w-lg mx-auto font-light leading-relaxed mb-5 sm:mb-6 text-xs sm:text-base">
               Have questions about our oils or want to place a bulk order? We&apos;d love to hear from you.
             </p>
             <PrimaryButton onClick={() => openEnquiry()} className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center">
@@ -179,14 +179,14 @@ function ProductCard({ product }: { product: Product }) {
             src={product.image} 
             alt={product.title} 
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" 
           />
           <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/85 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">{product.badge}</div>
         </div>
       </Link>
       <Link href={`/products/${product.slug}`}>
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors cursor-pointer mb-2 sm:mb-3">{product.title}</h3>
+        <h3 className="text-lg sm:text-xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors cursor-pointer mb-2 sm:mb-3">{product.title}</h3>
       </Link>
       <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
         <div className="flex text-[#e2a325] gap-0.5">{[...Array(5)].map((_, i) => (<Star key={i} size={13} fill="currentColor" />))}</div>
@@ -194,7 +194,7 @@ function ProductCard({ product }: { product: Product }) {
       </div>
       <p className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed mb-4 sm:mb-6 line-clamp-2">{product.description}</p>
       <div className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8 font-light flex items-center gap-2">
-        <span>{product.size}</span>
+        <span className="font-medium text-[#1a4a38]">1L • 5L • 15L</span>
         <span className="w-1 h-1 rounded-full bg-gray-300" />
         <span>Unrefined</span>
       </div>

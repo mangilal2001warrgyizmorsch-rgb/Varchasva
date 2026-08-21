@@ -18,24 +18,24 @@ const igImages = [
 
 export default function InstagramSection() {
   return (
-    <section className="py-16 sm:py-24 bg-white w-full border-t border-gray-100">
+    <section className="py-10 sm:py-14 md:py-16 bg-white w-full border-t border-gray-100">
       <motion.div 
-        className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 mb-10 sm:mb-16 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6"
+        className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 mb-6 sm:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={fadeInUp}
       >
         <div>
-          <div className="flex items-center gap-3 mb-3 sm:mb-6">
+          <div className="flex items-center gap-3 mb-2 sm:mb-4">
             <Instagram size={18} className="text-[#1a4a38]" />
             <div className="w-8 h-[1px] bg-[#e2a325]"></div>
-            <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">@dharoharoils</h4>
+            <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">@varchasvaoils</h4>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#111810] leading-tight">Join Our Community</h2>
         </div>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-          <SecondaryButton className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-xs tracking-widest border-[#111810]/20 text-[#111810] hover:border-[#1a4a38] hover:text-[#1a4a38] shadow-sm hover:shadow-md transition-all duration-300 text-center justify-center">
+          <SecondaryButton className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 text-xs tracking-widest border-[#111810]/20 text-[#111810] hover:border-[#1a4a38] hover:text-[#1a4a38] shadow-sm hover:shadow-md transition-all duration-300 text-center justify-center">
             Follow Us
           </SecondaryButton>
         </a>
@@ -70,7 +70,7 @@ export default function InstagramSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-3 sm:p-4">
                 <div className="flex items-center gap-1.5 text-white text-[10px] sm:text-xs font-medium">
                   <Instagram size={12} className="sm:w-3.5 sm:h-3.5" />
-                  <span className="truncate">@dharoharoils</span>
+                  <span className="truncate">@varchasvaoils</span>
                 </div>
               </div>
             </motion.div>

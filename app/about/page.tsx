@@ -17,7 +17,7 @@ export default function AboutPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-12 md:pb-14 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
         <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-64 sm:w-80 md:w-[400px] h-64 sm:h-80 md:h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
         <motion.div 
@@ -26,42 +26,42 @@ export default function AboutPage() {
           animate="visible"
           variants={heroStagger}
         >
-          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
+          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">Our Story</span>
           </motion.div>
-          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-4 sm:mb-6">
+          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-3 sm:mb-4">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">About Us</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
           </motion.div>
-          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Our Story</motion.h1>
-          <motion.p variants={heroReveal} className="text-sm sm:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
-            Rooted in tradition, driven by purity — Dharohar revives the ancient art of cold-pressing to bring you oils the way nature intended.
+          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#111810] leading-tight mb-3 sm:mb-4">Our Story</motion.h1>
+          <motion.p variants={heroReveal} className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl font-light leading-relaxed">
+            Rooted in tradition, driven by purity — Varchasva revives the ancient art of cold-pressing to bring you oils the way nature intended.
           </motion.p>
         </motion.div>
       </section>
 
       {/* ORIGIN STORY */}
-      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeInLeft}
           >
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center gap-3 mb-3 sm:mb-4">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
               <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Our Heritage</h4>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810] mb-6 sm:mb-8 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-4 sm:mb-6 leading-tight">
               A Legacy of <span className="text-[#e2a325] italic font-light">Pure Goodness</span>
             </h2>
-            <div className="space-y-4 sm:space-y-6 text-gray-600 font-light leading-relaxed text-sm sm:text-base">
-              <p>Dharohar was born from a simple belief — that the oils our grandmothers trusted should not be lost to industrial processing. In the villages of Rajasthan, families have been pressing mustard, sesame, and groundnut oils using wooden ghanis for centuries.</p>
-              <p>We started Dharohar to bridge this heritage with modern wellness. Every bottle we produce follows the same time-honoured methods — hand-selected seeds, slow wooden pressing below 40°C, and zero chemical processing. The result is oil that tastes, smells, and nourishes exactly as nature intended.</p>
+            <div className="space-y-3 sm:space-y-4 text-gray-600 font-light leading-relaxed text-sm sm:text-base">
+              <p>Varchasva was born from a simple belief — that the oils our grandmothers trusted should not be lost to industrial processing. In the villages of Rajasthan, families have been pressing mustard, sesame, and groundnut oils using wooden ghanis for centuries.</p>
+              <p>We started Varchasva to bridge this heritage with modern wellness. Every bottle we produce follows the same time-honoured methods — hand-selected seeds, slow wooden pressing below 40°C, and zero chemical processing. The result is oil that tastes, smells, and nourishes exactly as nature intended.</p>
               <p>Today, we work directly with over 200 farming families across Rajasthan, Gujarat, and Kerala, ensuring fair prices for their harvest and the highest quality for your kitchen.</p>
             </div>
           </motion.div>
@@ -74,8 +74,8 @@ export default function AboutPage() {
           >
             <div className="aspect-[4/5] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-gray-100 shadow-xl shadow-black/5 relative">
               <Image 
-                src="/about_heritage_farmer.webp" 
-                alt="Dharohar Heritage" 
+                src="/about/about_heritage_farmer.webp" 
+                alt="Varchasva Heritage" 
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover hover:scale-105 transition-transform duration-1000" 
@@ -93,56 +93,56 @@ export default function AboutPage() {
       </section>
 
       {/* MISSION & VISION */}
-      <section className="bg-[#fdfaf6] py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
+      <section className="bg-[#fdfaf6] py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="text-center mb-10 sm:mb-16"
+            className="text-center mb-8 sm:mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeInUp}
           >
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
               <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">What Drives Us</h4>
               <div className="w-8 h-[1px] bg-[#e2a325]" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810]">Mission & Vision</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810]">Mission & Vision</h2>
           </motion.div>
           <motion.div 
-            className="w-full aspect-[16/9] md:aspect-[21/9] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden mb-10 sm:mb-16 border border-gray-100 shadow-xl shadow-black/5 relative"
+            className="w-full aspect-[16/9] md:aspect-[16/9] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden mb-8 sm:mb-12 border border-gray-100 shadow-xl shadow-black/5 relative"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeInUp}
           >
             <Image 
-              src="/about_mission_vision.webp" 
-              alt="Dharohar Mission and Vision" 
+              src="/about/about_coconut_pour.webp" 
+              alt="Varchasva Pure Oil" 
               fill
               sizes="100vw"
               className="object-cover" 
             />
           </motion.div>
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10"
+            className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
           >
-            <motion.div variants={staggerItem} className="bg-white p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">
-                <Heart size={24} strokeWidth={1.5} className="sm:w-7 sm:h-7" />
+            <motion.div variants={staggerItem} className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 mb-3 sm:mb-4 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">
+                <Heart size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-serif text-[#111810] mb-3 sm:mb-4">Our Mission</h3>
+              <h3 className="text-xl sm:text-2xl font-serif text-[#111810] mb-2 sm:mb-3">Our Mission</h3>
               <p className="text-gray-600 font-light leading-relaxed text-sm sm:text-base">To make pure, cold-pressed oils accessible to every Indian household — reviving traditional extraction methods while empowering rural farming communities with sustainable livelihoods.</p>
             </motion.div>
-            <motion.div variants={staggerItem} className="bg-white p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">
-                <Globe size={24} strokeWidth={1.5} className="sm:w-7 sm:h-7" />
+            <motion.div variants={staggerItem} className="bg-white p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 mb-3 sm:mb-4 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">
+                <Globe size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-serif text-[#111810] mb-3 sm:mb-4">Our Vision</h3>
+              <h3 className="text-xl sm:text-2xl font-serif text-[#111810] mb-2 sm:mb-3">Our Vision</h3>
               <p className="text-gray-600 font-light leading-relaxed text-sm sm:text-base">To become India&apos;s most trusted name in traditional cold-pressed oils — a brand synonymous with purity, heritage, and honest craftsmanship. We envision a future where every kitchen returns to nature.</p>
             </motion.div>
           </motion.div>
@@ -150,24 +150,24 @@ export default function AboutPage() {
       </section>
 
       {/* VALUES */}
-      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
+      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="text-center mb-10 sm:mb-16"
+            className="text-center mb-8 sm:mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeInUp}
           >
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <div className="w-8 h-[1px] bg-[#e2a325]" />
               <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Our Pillars</h4>
               <div className="w-8 h-[1px] bg-[#e2a325]" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810]">What We Stand For</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810]">What We Stand For</h2>
           </motion.div>
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -180,7 +180,7 @@ export default function AboutPage() {
               { icon: <Sparkles size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Tradition", desc: "Centuries-old wooden ghani pressing preserved for modern wellness." },
             ].map((v) => (
               <motion.div key={v.title} variants={staggerItem} className="text-center group p-2">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-6 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">{v.icon}</div>
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">{v.icon}</div>
                 <h4 className="text-base sm:text-lg font-serif text-[#111810] mb-1 sm:mb-2 group-hover:text-[#1a4a38] transition-colors">{v.title}</h4>
                 <p className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed">{v.desc}</p>
               </motion.div>
@@ -191,7 +191,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <motion.section 
-        className="bg-[#fdfaf6] py-16 sm:py-24 px-4 sm:px-8 lg:px-24 border-t border-gray-100"
+        className="bg-[#fdfaf6] py-10 sm:py-14 md:py-16 px-4 sm:px-8 lg:px-24 border-t border-gray-100"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}

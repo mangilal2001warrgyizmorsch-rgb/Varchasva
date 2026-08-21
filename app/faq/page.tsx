@@ -64,7 +64,7 @@ export default function FAQPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
+      <section className="relative pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-12 md:pb-14 px-4 sm:px-8 md:px-12 lg:px-24 bg-[#fdfaf6] overflow-hidden">
         <div className="absolute -top-40 -right-40 w-72 sm:w-96 md:w-[500px] h-72 sm:h-96 md:h-[500px] bg-[#e2a325]/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-64 sm:w-80 md:w-[400px] h-64 sm:h-80 md:h-[400px] bg-[#1a4a38]/5 rounded-full blur-3xl" />
         <motion.div 
@@ -73,25 +73,25 @@ export default function FAQPage() {
           animate="visible"
           variants={heroStagger}
         >
-          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 font-light">
+          <motion.div variants={heroReveal} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 font-light">
             <Link href="/" className="hover:text-[#1a4a38] transition-colors">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a4a38] font-medium">FAQ</span>
           </motion.div>
-          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-4 sm:mb-6">
+          <motion.div variants={heroReveal} className="flex items-center gap-3 mb-3 sm:mb-4">
             <div className="w-8 h-[1px] bg-[#e2a325]" />
             <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Help Center</h4>
             <div className="w-8 h-[1px] bg-[#e2a325]" />
           </motion.div>
-          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#111810] leading-tight mb-4 sm:mb-6">Frequently Asked Questions</motion.h1>
-          <motion.p variants={heroReveal} className="text-sm sm:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">Everything you need to know about our cold-pressed oils, ordering, and delivery.</motion.p>
+          <motion.h1 variants={heroReveal} className="text-3xl sm:text-5xl md:text-6xl font-serif text-[#111810] leading-tight mb-3 sm:mb-4">Frequently Asked Questions</motion.h1>
+          <motion.p variants={heroReveal} className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl font-light leading-relaxed">Everything you need to know about our cold-pressed oils, ordering, and delivery.</motion.p>
         </motion.div>
       </section>
 
       {/* FAQ LIST */}
-      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
+      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
         <motion.div 
-          className="max-w-3xl mx-auto bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-6 sm:p-8 md:p-12 shadow-xl shadow-black/5"
+          className="max-w-3xl mx-auto bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-6 sm:p-8 md:p-10 shadow-xl shadow-black/5"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -103,15 +103,15 @@ export default function FAQPage() {
 
       {/* CTA */}
       <motion.section 
-        className="bg-[#fdfaf6] py-16 sm:py-24 px-4 sm:px-8 lg:px-24 border-t border-gray-100"
+        className="bg-[#fdfaf6] py-10 sm:py-14 md:py-16 px-4 sm:px-8 lg:px-24 border-t border-gray-100"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={fadeInUp}
       >
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-4 sm:mb-6">Still Have Questions?</h2>
-          <p className="text-gray-600 font-light leading-relaxed mb-6 sm:mb-10 max-w-lg mx-auto text-xs sm:text-base">Can&apos;t find the answer you&apos;re looking for? Reach out and we&apos;ll get back to you within 24 hours.</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-3 sm:mb-4">Still Have Questions?</h2>
+          <p className="text-gray-600 font-light leading-relaxed mb-5 sm:mb-8 max-w-lg mx-auto text-xs sm:text-base">Can&apos;t find the answer you&apos;re looking for? Reach out and we&apos;ll get back to you within 24 hours.</p>
           <PrimaryButton onClick={() => openEnquiry()} className="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 text-xs tracking-widest shadow-lg shadow-black/5 text-center justify-center">
             <MessageCircle size={14} className="mr-2" /> Contact Us
           </PrimaryButton>

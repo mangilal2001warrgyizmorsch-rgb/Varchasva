@@ -4,29 +4,65 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Calendar, Clock, ArrowLeft, Leaf, ChevronDown, Send, MessageCircle } from "lucide-react";
+import { ChevronRight, Calendar, Clock, ArrowLeft, Leaf, ChevronDown, Send, MessageCircle, CheckCircle2 } from "lucide-react";
 import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import { PrimaryButton } from "../../../components/ui/Button";
 import ProductsSection from "../../../components/sections/home/ProductsSection";
 import { PRODUCTS } from "../../../constants/products";
-import { getArticleBySlug, getRelatedArticles } from "../../../constants/articles";
 import { useEnquiry } from "../../../context/EnquiryContext";
 import { fadeInUp, staggerContainer, staggerItem, heroStagger, heroReveal, viewportOnce } from "../../../utils/animations";
 
 export default function JournalDetailPage() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";
-  const article = getArticleBySlug(slug);
   const { openEnquiry } = useEnquiry();
 
-  const [formData, setFormData] = React.useState({ name: "", email: "", phone: "", product: "", message: "" });
+  const [article, setArticle] = React.useState<any>(null);
+  const [related, setRelated] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!slug) return;
+    Promise.all([
+      fetch(`/api/journal?slug=${slug}&publishedOnly=true`).then(r => r.json()),
+      fetch(`/api/journal?publishedOnly=true`).then(r => r.json())
+    ])
+    .then(([articleData, allData]) => {
+      if (articleData.success && articleData.data.length > 0) {
+        setArticle(articleData.data[0]);
+      }
+      if (allData.success) {
+        // filter out current and pick first 3 for related
+        setRelated(allData.data.filter((a: any) => a.slug !== slug).slice(0, 3));
+      }
+    })
+    .catch(console.error)
+    .finally(() => setLoading(false));
+  }, [slug]);
+
+  const [formData, setFormData] = React.useState({ 
+    name: "", 
+    email: "", 
+    phone: "", 
+    product: "", 
+    becomeDealer: false,
+    message: "" 
+  });
   const [submitted, setSubmitted] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  if (loading) {
+    return (
+      <div className="bg-[#1a1c17] text-[#f4f2eb] min-h-screen font-sans flex items-center justify-center">
+        <div className="text-gray-400">Loading article...</div>
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -44,7 +80,14 @@ export default function JournalDetailPage() {
     );
   }
 
-  const related = getRelatedArticles(slug, 3);
+  // Parse content if it is stored as a JSON string array or simple markdown, but here we assume it's stored as array of strings like original constants
+  let parsedContent = [];
+  try {
+    parsedContent = typeof article.content === 'string' ? JSON.parse(article.content) : article.content;
+    if (!Array.isArray(parsedContent)) parsedContent = [article.content];
+  } catch (e) {
+    parsedContent = [article.content];
+  }
 
   return (
     <div className="bg-[#1a1c17] text-[#f4f2eb] min-h-screen overflow-hidden font-sans">
@@ -108,7 +151,7 @@ export default function JournalDetailPage() {
       </motion.section>
 
       {/* ARTICLE CONTENT */}
-      <section className="bg-white py-12 sm:py-20 md:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
+      <section className="bg-white py-8 sm:py-12 md:py-14 px-4 sm:px-8 md:px-12 lg:px-24">
         <motion.div 
           className="max-w-3xl mx-auto"
           initial="hidden"
@@ -116,11 +159,11 @@ export default function JournalDetailPage() {
           viewport={viewportOnce}
           variants={staggerContainer}
         >
-          {article.content.map((paragraph, i) => (
+          {parsedContent.map((paragraph: string, i: number) => (
             <motion.div 
               key={i} 
               variants={staggerItem}
-              className="mb-6 sm:mb-8"
+              className="mb-5 sm:mb-6"
             >
               {paragraph.startsWith("**") || paragraph.match(/^\d\./) ? (
                 <p 
@@ -138,59 +181,104 @@ export default function JournalDetailPage() {
       </section>
 
       {/* INLINE ENQUIRY FORM */}
-      <section className="bg-[#fdfaf6] py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+      <section className="bg-[#fdfaf6] py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
         <div className="max-w-4xl mx-auto">
           <motion.div 
-            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-8 sm:p-12 shadow-xl shadow-black/5"
+            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-6 sm:p-10 shadow-xl shadow-black/5"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeInUp}
           >
-            <div className="text-center mb-8 sm:mb-10">
-              <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-[#1a4a38] mx-auto mb-4" />
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-2 sm:mb-4">Interested in Our Oils?</h3>
-              <p className="text-gray-600 font-light text-sm sm:text-base max-w-lg mx-auto">Experience the purity and nutrition of cold-pressed oils. Fill out the form below to enquire.</p>
+            <div className="text-center mb-6 sm:mb-8">
+              <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-[#1a4a38] mx-auto mb-3" />
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810] mb-2 sm:mb-3">Interested in Our Oils?</h3>
+              <p className="text-gray-600 font-light text-xs sm:text-sm max-w-lg mx-auto">Experience the purity and nutrition of cold-pressed oils. Fill out the form below to enquire.</p>
             </div>
 
             {submitted ? (
-              <div className="text-center py-10">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#1a4a38] rounded-full flex items-center justify-center text-white"><MessageCircle size={28} /></div>
-                <h3 className="text-xl sm:text-2xl font-serif text-[#111810] mb-2">Thank You!</h3>
-                <p className="text-gray-600 font-light mb-6">Your enquiry has been received. We'll get back to you within 24 hours.</p>
-                <button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", phone: "", product: "", message: "" }); }} className="text-[#1a4a38] text-sm font-medium hover:underline cursor-pointer">Send another enquiry</button>
-              </div>
+              <motion.div 
+                className="bg-[#fdfaf6] rounded-2xl p-6 sm:p-8 text-center border border-gray-100"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="w-12 h-12 mx-auto mb-3 bg-[#1a4a38] text-[#e2a325] rounded-full flex items-center justify-center">
+                  <CheckCircle2 size={24} />
+                </div>
+                <h4 className="text-lg font-serif text-[#111810] mb-1">Thank You!</h4>
+                <p className="text-xs text-gray-500 font-light mb-4">We have received your enquiry and will get back to you shortly.</p>
+                <button 
+                  onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", phone: "", product: article.title, becomeDealer: false, message: "" }); }}
+                  className="text-xs text-[#1a4a38] font-semibold hover:underline"
+                >
+                  Send another message
+                </button>
+              </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 max-w-2xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Full Name *</label>
-                    <input required type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1a4a38] transition font-light" placeholder="Your name" />
+                    <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Your Name *</label>
+                    <input 
+                      required 
+                      type="text" 
+                      value={formData.name} 
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+                      placeholder="Full Name" 
+                      className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition placeholder:text-gray-400 font-light shadow-sm" 
+                    />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Email *</label>
-                    <input required type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1a4a38] transition font-light" placeholder="your@email.com" />
+                    <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Email Address *</label>
+                    <input 
+                      required 
+                      type="email" 
+                      value={formData.email} 
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
+                      placeholder="you@example.com" 
+                      className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition placeholder:text-gray-400 font-light shadow-sm" 
+                    />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Phone Number</label>
-                    <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1a4a38] transition font-light" placeholder="+91 99999 99999" />
+                    <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      value={formData.phone} 
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })} 
+                      placeholder="+91 89499 44620" 
+                      className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition placeholder:text-gray-400 font-light shadow-sm" 
+                    />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Product Interest</label>
-                    <select value={formData.product} onChange={(e) => setFormData({ ...formData, product: e.target.value })} className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1a4a38] transition font-light appearance-none cursor-pointer">
-                      <option value="">Select a product</option>
-                      {PRODUCTS.map(p => <option key={p.slug} value={p.title}>{p.title}</option>)}
-                    </select>
+                    <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Product Interest</label>
+                    <input 
+                      type="text" 
+                      value={formData.product} 
+                      onChange={(e) => setFormData({ ...formData, product: e.target.value })} 
+                      placeholder="Product Name" 
+                      className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition placeholder:text-gray-400 font-light shadow-sm" 
+                    />
                   </div>
                 </div>
+
                 <div>
-                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Message *</label>
-                  <textarea required rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#1a4a38] transition font-light resize-none" placeholder="How can we help you?" />
+                  <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a4a38] mb-1.5 block">Your Message *</label>
+                  <textarea 
+                    required 
+                    rows={3} 
+                    value={formData.message} 
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })} 
+                    placeholder="Tell us what you're looking for..." 
+                    className="w-full bg-[#fdfaf6] border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#111810] focus:outline-none focus:border-[#1a4a38] transition placeholder:text-gray-400 font-light resize-none shadow-sm" 
+                  />
                 </div>
-                <div className="text-center pt-2">
-                  <PrimaryButton type="submit" className="px-10 py-4 text-xs tracking-widest w-full sm:w-auto text-center justify-center shadow-lg shadow-black/5">
+
+                <div className="pt-2 text-center">
+                  <PrimaryButton type="submit" className="px-8 sm:px-10 py-3.5 text-xs tracking-widest shadow-lg shadow-black/5 w-full sm:w-auto text-center justify-center">
                     <Send size={14} className="mr-2" /> Send Enquiry
                   </PrimaryButton>
                 </div>
@@ -202,25 +290,25 @@ export default function JournalDetailPage() {
 
       {/* RELATED ARTICLES */}
       {related.length > 0 && (
-        <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+        <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
           <div className="max-w-7xl mx-auto">
             <motion.div 
-              className="text-center mb-10 sm:mb-16"
+              className="text-center mb-8 sm:mb-12"
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
               variants={fadeInUp}
             >
-              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+              <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
                 <div className="w-8 h-[1px] bg-[#e2a325]" />
                 <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Keep Reading</h4>
                 <div className="w-8 h-[1px] bg-[#e2a325]" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#111810]">Related Stories</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810]">Related Stories</h2>
             </motion.div>
 
             <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -245,10 +333,10 @@ export default function JournalDetailPage() {
                       />
                     </div>
                   </Link>
-                  <div className="p-5 sm:p-7 flex flex-col flex-1">
-                    <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-[#e2a325] bg-[#e2a325]/10 px-2.5 sm:px-3 py-1 rounded-full w-fit mb-3 sm:mb-4">{a.category}</span>
+                  <div className="p-5 sm:p-6 flex flex-col flex-1">
+                    <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-[#e2a325] bg-[#e2a325]/10 px-2.5 sm:px-3 py-1 rounded-full w-fit mb-2 sm:mb-3">{a.category}</span>
                     <Link href={`/journal/${a.slug}`}>
-                      <h3 className="text-base sm:text-lg font-serif text-[#111810] mb-2 sm:mb-3 group-hover:text-[#1a4a38] transition-colors leading-tight">{a.title}</h3>
+                      <h3 className="text-base sm:text-lg font-serif text-[#111810] mb-2 group-hover:text-[#1a4a38] transition-colors leading-tight">{a.title}</h3>
                     </Link>
                     <div className="flex items-center gap-3 text-[11px] sm:text-xs text-gray-400 font-light mt-auto pt-2">
                       <span className="flex items-center gap-1"><Calendar size={11} className="sm:w-3 sm:h-3" /> {a.date}</span>
@@ -260,7 +348,7 @@ export default function JournalDetailPage() {
           </motion.div>
 
           <motion.div 
-            className="mt-10 sm:mt-16 flex justify-center"
+            className="mt-8 sm:mt-12 flex justify-center"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
@@ -280,7 +368,7 @@ export default function JournalDetailPage() {
       </div>
 
       {/* FAQ SECTION */}
-      <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
         <div className="max-w-3xl mx-auto">
           <motion.div 
             className="text-center mb-10 sm:mb-12"

@@ -7,6 +7,7 @@ import PromiseSection from "../components/sections/home/PromiseSection";
 import ProcessSection from "../components/sections/home/ProcessSection";
 import ProductsSection from "../components/sections/home/ProductsSection";
 import BannerSection from "../components/sections/home/BannerSection";
+import TestimonialsSection from "../components/sections/home/TestimonialsSection";
 import InstagramSection from "../components/sections/home/InstagramSection";
 
 export default function PremiumEdibleOilHomepage() {
@@ -17,6 +18,7 @@ export default function PremiumEdibleOilHomepage() {
       <PromiseSection />
       <ProcessSection />
       <ProductsSection />
+      <TestimonialsSection />
       <BannerSection />
       <InstagramSection />
       <Footer />
