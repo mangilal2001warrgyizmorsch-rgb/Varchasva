@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Plus, Trash2, Search } from "lucide-react";
+import { Plus, Trash2, Search, Pencil } from "lucide-react";
 import toast from "react-hot-toast";
 import {
   Table,
@@ -138,15 +138,27 @@ export default function AdminJournalPage() {
                       )}
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-red-500 hover:text-red-600 hover:bg-red-50"
-                        onClick={() => handleDelete(article._id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                        <span className="sr-only">Delete</span>
-                      </Button>
+                      <div className="flex justify-end gap-2">
+                        <Link href={`/admin/journal/edit/${article._id}`}>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-blue-500 hover:text-blue-600 hover:bg-blue-50"
+                          >
+                            <Pencil className="h-4 w-4" />
+                            <span className="sr-only">Edit</span>
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                          onClick={() => handleDelete(article._id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                          <span className="sr-only">Delete</span>
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))

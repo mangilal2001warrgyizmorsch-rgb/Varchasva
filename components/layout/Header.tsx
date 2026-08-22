@@ -10,10 +10,10 @@ import {
   ChevronDown,
   Menu,
   X,
-  Phone,
   MessageSquare,
   ArrowRight,
 } from "lucide-react";
+import WhatsappIcon from "../ui/WhatsappIcon";
 import { PrimaryButton } from "../ui/Button";
 import { useEnquiry } from "../../context/EnquiryContext";
 import { PRODUCTS } from "../../constants/products";
@@ -416,7 +416,7 @@ export default function Header() {
                         type="button"
                         className="w-full bg-white hover:bg-gray-50 text-[#1a4a38] border border-[#1a4a38]/30 py-3.5 rounded-full font-bold uppercase tracking-widest text-[11px] sm:text-xs transition-colors flex items-center justify-center gap-2 text-center cursor-pointer shadow-sm"
                       >
-                        <Phone size={14} /> WhatsApp Us
+                        <WhatsappIcon size={14} color="#15803d" /> WhatsApp Us
                       </button>
                     </a>
 

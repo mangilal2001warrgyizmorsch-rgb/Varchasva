@@ -149,4 +149,13 @@ body {
   html {
     @apply font-sans;
   }
+  
+  /* Ensure all interactive elements show a pointer cursor globally */
+  button, 
+  a, 
+  [role="button"], 
+  select, 
+  label {
+    cursor: pointer !important;
+  }
 }

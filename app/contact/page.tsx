@@ -7,6 +7,7 @@ import { ChevronRight, Phone, Mail, MapPin, Clock, MessageCircle, Send } from "l
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { PrimaryButton } from "../../components/ui/Button";
+import WhatsappIcon from "../../components/ui/WhatsappIcon";
 import { PRODUCTS } from "../../constants/products";
 import { fadeInUp, fadeInLeft, fadeInRight, heroStagger, heroReveal, viewportOnce } from "../../utils/animations";
 
@@ -211,7 +212,7 @@ export default function ContactPage() {
               <div className="pt-4 sm:pt-6 border-t border-gray-200">
                 <a href="https://wa.me/918949944620" target="_blank" rel="noopener noreferrer" className="block w-full">
                   <button className="w-full bg-[#1a4a38] hover:bg-[#111810] text-white rounded-xl text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 py-3.5 sm:py-4 cursor-pointer shadow-sm">
-                    <Phone size={15} /> WhatsApp Us
+                    <WhatsappIcon size={15} color="#ffffff" /> WhatsApp Us
                   </button>
                 </a>
               </div>

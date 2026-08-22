@@ -19,6 +19,7 @@ import Header from "../../../components/layout/Header";
 import Footer from "../../../components/layout/Footer";
 import { PrimaryButton } from "../../../components/ui/Button";
 import ProductReviews from "../../../components/sections/product/ProductReviews";
+import WhatsappIcon from "../../../components/ui/WhatsappIcon";
 import {
   getProductBySlug,
   getRelatedProducts,
@@ -386,7 +387,7 @@ function ProductInfo({ product }: { product: Product }) {
         className="block w-full"
       >
         <button className="w-full bg-[#1a4a38] hover:bg-[#111810] text-white rounded-lg text-[10px] sm:text-[11px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 shadow-lg shadow-black/10 hover:shadow-xl hover:-translate-y-0.5 py-3.5 sm:py-4 mb-6 sm:mb-10 cursor-pointer">
-          <Phone size={15} /> WhatsApp Us
+          <WhatsappIcon size={15} color="#ffffff" /> WhatsApp Us
         </button>
       </a>
 

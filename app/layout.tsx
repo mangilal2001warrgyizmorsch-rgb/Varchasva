@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import { Toaster } from "react-hot-toast";
+import FloatingWhatsApp from "../components/ui/FloatingWhatsApp";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col bg-[#faf3e0] text-[#171717]">
         <EnquiryProvider>
           {children}
+          <FloatingWhatsApp />
           <Toaster position="top-right" />
         </EnquiryProvider>
       </body>

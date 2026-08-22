@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, CheckCircle2, Phone, MessageSquare, ChevronDown } from "lucide-react";
 import { PRODUCTS } from "../../constants/products";
 import { PrimaryButton } from "./Button";
+import WhatsappIcon from "./WhatsappIcon";
 
 import toast from "react-hot-toast";
 
@@ -337,7 +338,7 @@ export default function EnquiryModal({ isOpen, onClose, initialProduct = "" }: E
                         type="button"
                         className="w-full sm:w-auto px-5 py-3.5 sm:py-3 rounded-full text-xs font-bold uppercase tracking-widest text-[#1a4a38] bg-white border border-gray-200 hover:border-[#1a4a38] hover:bg-[#1a4a38]/5 transition-all flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <Phone size={13} /> WhatsApp
+                        <WhatsappIcon size={14} color="#15803d" /> WhatsApp
                       </button>
                     </a>
                   </div>
