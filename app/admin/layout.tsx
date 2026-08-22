@@ -32,7 +32,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: "Journal", href: "/admin/journal", icon: <FileText size={20} /> },
   ];
 
-  const SidebarContent = () => (
+  const renderSidebarContent = () => (
     <>
       <div className="h-20 flex items-center justify-center px-6 border-b border-gray-100/50">
         <Link href="/" className="flex items-center justify-center w-full mt-2">
@@ -94,7 +94,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex h-screen bg-[#faf3e0]/30 text-gray-900 font-sans overflow-hidden">
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-72 bg-white border-r border-gray-200/60 flex-col flex-shrink-0 shadow-sm z-20">
-        <SidebarContent />
+        {renderSidebarContent()}
       </aside>
 
       {/* Mobile Header */}
@@ -127,11 +127,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="absolute top-4 right-4 p-2 text-gray-500 hover:bg-gray-100 rounded-lg"
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
               >
                 <X size={20} />
               </button>
-              <SidebarContent />
+              {renderSidebarContent()}
             </motion.aside>
           </>
         )}

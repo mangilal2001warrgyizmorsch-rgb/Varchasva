@@ -10,7 +10,7 @@ export async function GET(req: Request) {
     const publishedOnly = searchParams.get("publishedOnly");
     const slug = searchParams.get("slug");
 
-    let query: any = {};
+    const query: any = {};
     if (publishedOnly === "true") query.isPublished = true;
     if (slug) query.slug = slug;
 

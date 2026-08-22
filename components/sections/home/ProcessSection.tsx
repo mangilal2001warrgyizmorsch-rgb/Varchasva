@@ -114,8 +114,7 @@ export default function ProcessSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#fdfaf6]"
-      style={{ height: "220vh" }}
+      className="relative bg-[#fdfaf6] h-auto lg:h-[220vh]"
     >
       {/* ═══════ DESKTOP: Sticky + Horizontal Scroll ═══════ */}
       <div className="sticky top-0 h-screen w-full hidden lg:flex flex-col justify-between py-6 xl:py-8 overflow-hidden">

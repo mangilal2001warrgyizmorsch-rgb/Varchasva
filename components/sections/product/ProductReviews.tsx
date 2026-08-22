@@ -29,7 +29,7 @@ export default function ProductReviews({ productName }: { productName: string })
   if (reviews.length === 0) return null;
 
   return (
-    <section className="bg-white py-16 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-24">
+    <section className="bg-white py-12 sm:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           className="flex flex-col md:flex-row gap-12 lg:gap-24"

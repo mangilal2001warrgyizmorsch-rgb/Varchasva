@@ -52,7 +52,7 @@ export default function AdminDashboard() {
       <div>
         <h1 className="text-3xl font-bold font-serif text-[#1a4a38] tracking-tight">Dashboard Overview</h1>
         <p className="text-sm text-muted-foreground mt-2">
-          Welcome to the Varchasva admin panel. Here's what's happening today.
+          Welcome to the Varchasva admin panel. Here&apos;s what&apos;s happening today.
         </p>
       </div>
       
