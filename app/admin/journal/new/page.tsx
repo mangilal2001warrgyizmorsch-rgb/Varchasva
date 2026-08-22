@@ -59,6 +59,32 @@ export default function NewJournalPage() {
     e.target.value = ''; // Reset input
   };
 
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const uploadData = new FormData();
+    uploadData.append("file", file);
+
+    const loadingToast = toast.loading("Uploading image...");
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
+        setFormData({ ...formData, image: data.url });
+        toast.success("Image uploaded!", { id: loadingToast });
+      } else {
+        toast.error(data.error || "Upload failed", { id: loadingToast });
+      }
+    } catch (err) {
+      toast.error("Error uploading image", { id: loadingToast });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -130,16 +156,23 @@ export default function NewJournalPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="image">Featured Image URL <span className="text-red-500">*</span></Label>
-                <Input
-                  id="image"
-                  required
-                  type="text"
-                  placeholder="/journal/image.jpg"
-                  value={formData.image}
-                  onChange={e => setFormData({...formData, image: e.target.value})}
-                  className="bg-white"
-                />
+                <Label htmlFor="image">Featured Image <span className="text-red-500">*</span></Label>
+                <div className="flex items-center gap-3">
+                  <Input
+                    id="image"
+                    required={!formData.image || formData.image === "/journal/placeholder.jpg"}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageSelect}
+                    className="bg-white cursor-pointer"
+                  />
+                  {formData.image && formData.image !== "/journal/placeholder.jpg" && (
+                    <div className="h-10 w-16 shrink-0 relative rounded overflow-hidden border border-gray-200">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={formData.image} alt="Preview" className="object-cover w-full h-full" />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
