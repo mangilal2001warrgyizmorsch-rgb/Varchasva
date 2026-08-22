@@ -14,8 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Varchasva | Pure Cold-Pressed Natural Oils",
-  description: "Reviving ancient wellness through 100% pure, cold-pressed oils. Honestly crafted from seed to bottle.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://varchasva.com'),
+  title: {
+    default: "Varchasva | Pure Cold-Pressed Natural Oils",
+    template: "%s | Varchasva"
+  },
+  description: "Discover Varchasva's premium range of 100% pure, cold-pressed oils. Extracted using traditional wooden ghani methods for maximum health benefits and rich flavor.",
 };
 
 import { Toaster } from "react-hot-toast";
@@ -26,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col bg-[#faf3e0] text-[#171717]">
         <EnquiryProvider>

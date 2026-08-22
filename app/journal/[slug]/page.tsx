@@ -41,6 +41,26 @@ export default function JournalDetailPage() {
     .finally(() => setLoading(false));
   }, [slug]);
 
+  // Update SEO Meta Tags
+  React.useEffect(() => {
+    if (article) {
+      const title = article.metaTitle || article.title;
+      const description = article.metaDescription || article.excerpt;
+      
+      document.title = title;
+      
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', description);
+      } else {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        metaDesc.setAttribute('content', description);
+        document.head.appendChild(metaDesc);
+      }
+    }
+  }, [article]);
+
   const [formData, setFormData] = React.useState({ 
     name: "", 
     email: "", 
@@ -159,24 +179,42 @@ export default function JournalDetailPage() {
           viewport={viewportOnce}
           variants={staggerContainer}
         >
-          {parsedContent.map((paragraph: string, i: number) => (
+          {parsedContent.map((paragraph: string, i: number) => {
+            let decodedParagraph = paragraph;
+            if (decodedParagraph.includes('&lt;')) {
+              decodedParagraph = decodedParagraph
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                .replace(/&nbsp;/g, ' ');
+            }
+            
+            const isHtml = /<[a-z][\s\S]*>/i.test(decodedParagraph);
+            return (
             <motion.div 
               key={i} 
               variants={staggerItem}
               className="mb-5 sm:mb-6"
             >
-              {paragraph.startsWith("**") || paragraph.match(/^\d\./) ? (
+              {isHtml ? (
+                <div 
+                  className="text-gray-600 text-base sm:text-lg leading-[1.8] sm:leading-[1.9] font-light [&>p]:mb-4 [&>h1]:text-3xl [&>h1]:mb-4 [&>h1]:text-[#111810] [&>h1]:font-serif [&>h2]:text-2xl [&>h2]:mb-3 [&>h2]:text-[#111810] [&>h2]:font-serif [&>h3]:text-xl [&>h3]:mb-2 [&>h3]:text-[#111810] [&>h3]:font-serif [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-4 [&>ol]:list-decimal [&>ol]:ml-6 [&>ol]:mb-4 [&>a]:text-[#1a4a38] [&>a]:underline [&>strong]:font-semibold [&>strong]:text-[#111810] [&_table]:w-full [&_table]:border-collapse [&_table]:mb-6 [&_th]:border [&_th]:border-gray-200 [&_th]:p-3 [&_th]:bg-gray-50 [&_th]:text-left [&_td]:border [&_td]:border-gray-200 [&_td]:p-3" 
+                  dangerouslySetInnerHTML={{ __html: decodedParagraph }} 
+                />
+              ) : decodedParagraph.startsWith("**") || decodedParagraph.match(/^\d\./) ? (
                 <p 
                   className="text-gray-700 text-base sm:text-lg leading-relaxed font-light"
                   dangerouslySetInnerHTML={{ 
-                    __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-[#111810]">$1</strong>')
+                    __html: decodedParagraph.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-[#111810]">$1</strong>')
                   }} 
                 />
               ) : (
-                <p className="text-gray-600 text-base sm:text-lg leading-[1.8] sm:leading-[1.9] font-light">{paragraph}</p>
+                <p className="text-gray-600 text-base sm:text-lg leading-[1.8] sm:leading-[1.9] font-light">{decodedParagraph}</p>
               )}
             </motion.div>
-          ))}
+          )})}
         </motion.div>
       </section>
 
@@ -368,33 +406,35 @@ export default function JournalDetailPage() {
       </div>
 
       {/* FAQ SECTION */}
-      <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
-        <div className="max-w-3xl mx-auto">
-          <motion.div 
-            className="text-center mb-10 sm:mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={fadeInUp}
-          >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-8 h-[1px] bg-[#e2a325]" />
-              <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Learn More</h4>
-              <div className="w-8 h-[1px] bg-[#e2a325]" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810]">Common Questions</h2>
-          </motion.div>
-          <motion.div 
-            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-6 sm:p-8 md:p-12 shadow-xl shadow-black/5"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-          >
-            {JOURNAL_FAQS.map((faq, i) => (<FAQItem key={i} q={faq.q} a={faq.a} />))}
-          </motion.div>
-        </div>
-      </section>
+      {article.faqs && article.faqs.length > 0 && (
+        <section className="bg-white py-10 sm:py-14 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24 border-t border-gray-100">
+          <div className="max-w-3xl mx-auto">
+            <motion.div 
+              className="text-center mb-10 sm:mb-12"
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              variants={fadeInUp}
+            >
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="w-8 h-[1px] bg-[#e2a325]" />
+                <h4 className="text-[#1a4a38] text-[10px] font-bold tracking-[0.25em] uppercase">Learn More</h4>
+                <div className="w-8 h-[1px] bg-[#e2a325]" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#111810]">Common Questions</h2>
+            </motion.div>
+            <motion.div 
+              className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-6 sm:p-8 md:p-12 shadow-xl shadow-black/5"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+            >
+              {article.faqs.map((faq: any, i: number) => (<FAQItem key={i} q={faq.question} a={faq.answer} />))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { SignJWT } from "jose";
+import jwt from "jsonwebtoken";
 import connectDB from "@/lib/mongodb";
 import { Admin } from "@/models/Admin";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
-    const { password } = await req.json();
+    const { email, password } = await req.json();
 
     const jwtSecret = process.env.JWT_SECRET;
 
@@ -14,6 +14,13 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { success: false, error: "Server configuration error (JWT Secret missing)" },
         { status: 500 }
+      );
+    }
+
+    if (email !== "admin@varchasva.com") {
+      return NextResponse.json(
+        { success: false, error: "Invalid email" },
+        { status: 401 }
       );
     }
 
@@ -36,14 +43,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const secret = new TextEncoder().encode(jwtSecret);
-    const alg = "HS256";
-
-    const token = await new SignJWT({ role: "admin" })
-      .setProtectedHeader({ alg })
-      .setIssuedAt()
-      .setExpirationTime("7d")
-      .sign(secret);
+    const token = jwt.sign({ role: "admin" }, jwtSecret, { expiresIn: "7d" });
 
     const response = NextResponse.json({ success: true }, { status: 200 });
 

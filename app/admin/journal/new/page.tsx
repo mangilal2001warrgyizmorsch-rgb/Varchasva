@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, Loader2 } from "lucide-react";
+import { ArrowLeft, Save, Loader2, Plus, Trash2, Upload } from "lucide-react";
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -22,20 +26,45 @@ export default function NewJournalPage() {
     excerpt: "",
     content: "",
     isPublished: true,
+    metaTitle: "",
+    metaDescription: "",
+    faqs: [{ question: "", answer: "" }],
   });
+
+  const handleAddFaq = () => {
+    setFormData({ ...formData, faqs: [...formData.faqs, { question: "", answer: "" }] });
+  };
+
+  const handleRemoveFaq = (index: number) => {
+    const newFaqs = formData.faqs.filter((_, i) => i !== index);
+    setFormData({ ...formData, faqs: newFaqs });
+  };
+
+  const handleFaqChange = (index: number, field: "question" | "answer", value: string) => {
+    const newFaqs = [...formData.faqs];
+    newFaqs[index][field] = value;
+    setFormData({ ...formData, faqs: newFaqs });
+  };
+
+  const handleHtmlUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const htmlContent = event.target?.result as string;
+      setFormData({ ...formData, content: htmlContent });
+    };
+    reader.readAsText(file);
+    e.target.value = ''; // Reset input
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Convert paragraphs to an array of strings
-      const contentArray = formData.content.split('\n\n').filter(p => p.trim() !== '');
-
-      const payload = {
-        ...formData,
-        content: JSON.stringify(contentArray)
-      };
+      const payload = { ...formData };
 
       const res = await fetch("/api/journal", {
         method: "POST",
@@ -128,22 +157,122 @@ export default function NewJournalPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="content">Content <span className="text-red-500">*</span></Label>
-              <div className="rounded-md border border-gray-200 bg-gray-50/50 p-2 mb-2">
-                <p className="text-xs text-muted-foreground font-medium">Tip: Separate paragraphs by leaving a blank line between them.</p>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="content">Content <span className="text-red-500">*</span></Label>
+                <div>
+                  <input
+                    type="file"
+                    id="html-upload"
+                    accept=".html"
+                    className="hidden"
+                    onChange={handleHtmlUpload}
+                  />
+                  <Label 
+                    htmlFor="html-upload" 
+                    className="flex items-center gap-2 cursor-pointer text-xs font-medium text-[#1a4a38] bg-[#1a4a38]/10 hover:bg-[#1a4a38]/20 px-3 py-1.5 rounded-md transition-colors"
+                  >
+                    <Upload size={14} /> Upload HTML
+                  </Label>
+                </div>
               </div>
-              <Textarea
-                id="content"
-                required
-                rows={12}
-                value={formData.content}
-                onChange={e => setFormData({...formData, content: e.target.value})}
-                className="bg-white"
-                placeholder="Write your full article here..."
-              />
+              <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
+                <ReactQuill
+                  theme="snow"
+                  value={formData.content}
+                  onChange={(val) => setFormData({...formData, content: val})}
+                  className="h-96"
+                />
+              </div>
             </div>
 
-            <div className="flex items-center gap-3 pt-4 pb-2 border-t border-gray-100">
+            <div className="pt-6 border-t border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1a4a38] mb-4">SEO & Metadata</h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="metaTitle">Meta Title</Label>
+                  <Input
+                    id="metaTitle"
+                    type="text"
+                    placeholder="Leave blank to use article title..."
+                    value={formData.metaTitle}
+                    onChange={e => setFormData({...formData, metaTitle: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="metaDescription">Meta Description</Label>
+                  <Textarea
+                    id="metaDescription"
+                    rows={2}
+                    placeholder="Leave blank to use article excerpt..."
+                    value={formData.metaDescription}
+                    onChange={e => setFormData({...formData, metaDescription: e.target.value})}
+                    className="bg-white resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* FAQs Section */}
+            <div className="pt-6 border-t border-gray-100">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-[#1a4a38]">Frequently Asked Questions</h3>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleAddFaq}
+                  className="text-xs flex items-center gap-1 border-gray-200 cursor-pointer"
+                >
+                  <Plus size={14} /> Add FAQ
+                </Button>
+              </div>
+              
+              <div className="space-y-4">
+                {formData.faqs.map((faq, idx) => (
+                  <div key={idx} className="p-4 border border-gray-100 rounded-lg bg-gray-50/30 relative group">
+                    <button 
+                      type="button"
+                      onClick={() => handleRemoveFaq(idx)}
+                      className="absolute right-2 top-2 p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
+                      title="Remove FAQ"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                    <div className="space-y-3 pr-8">
+                      <div className="space-y-1">
+                        <Label className="text-xs text-gray-500">Question {idx + 1}</Label>
+                        <Input
+                          type="text"
+                          placeholder="e.g. How is cold-pressed oil made?"
+                          value={faq.question}
+                          onChange={e => handleFaqChange(idx, "question", e.target.value)}
+                          className="bg-white h-9"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs text-gray-500">Answer {idx + 1}</Label>
+                        <Textarea
+                          rows={2}
+                          placeholder="Enter the detailed answer..."
+                          value={faq.answer}
+                          onChange={e => handleFaqChange(idx, "answer", e.target.value)}
+                          className="bg-white resize-none text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {formData.faqs.length === 0 && (
+                  <div className="text-center py-6 text-sm text-gray-400 border border-dashed border-gray-200 rounded-lg">
+                    No FAQs added yet.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 pt-6 pb-2 border-t border-gray-100">
               <div className="flex h-5 items-center">
                 <input
                   type="checkbox"

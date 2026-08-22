@@ -1,5 +1,13 @@
-"use client";
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Premium Cold-Pressed Oils | 100% Pure & Natural",
+  description: "Experience the purity of Varchasva cold-pressed oils. Our traditional wooden ghani extraction preserves essential nutrients, authentic flavor, and natural aroma.",
+  alternates: {
+    canonical: '/',
+  },
+};
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import HeroSection from "../components/sections/home/HeroSection";

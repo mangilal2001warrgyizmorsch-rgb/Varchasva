@@ -2,15 +2,15 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import { Article } from "@/models/Article";
 import { cookies } from "next/headers";
-import * as jose from "jose";
+import jwt from "jsonwebtoken";
 
 async function verifyAuth() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("admin_session")?.value;
+  const token = cookieStore.get("admin_token")?.value;
   if (!token) return false;
   try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "fallback_secret");
-    await jose.jwtVerify(token, secret);
+    const secret = process.env.JWT_SECRET || "fallback_secret";
+    jwt.verify(token, secret);
     return true;
   } catch (err) {
     return false;

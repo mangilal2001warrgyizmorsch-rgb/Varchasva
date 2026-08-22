@@ -10,6 +10,9 @@ export interface IArticle extends Document {
   readTime: string;
   date: string;
   isPublished: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  faqs?: { question: string; answer: string }[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,8 +28,19 @@ const ArticleSchema = new Schema<IArticle>(
     readTime: { type: String, required: true },
     date: { type: String, required: true },
     isPublished: { type: Boolean, default: true },
+    metaTitle: { type: String },
+    metaDescription: { type: String },
+    faqs: [
+      {
+        question: { type: String },
+        answer: { type: String }
+      }
+    ]
   },
   { timestamps: true }
 );
 
-export const Article = models.Article || mongoose.model<IArticle>("Article", ArticleSchema);
+if (mongoose.models.Article) {
+  delete mongoose.models.Article;
+}
+export const Article = mongoose.model<IArticle>("Article", ArticleSchema);
