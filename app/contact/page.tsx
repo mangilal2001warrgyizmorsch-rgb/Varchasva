@@ -204,8 +204,7 @@ export default function ContactPage() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl flex items-center justify-center text-[#1a4a38] flex-shrink-0 border border-gray-100 shadow-sm"><Clock size={18} className="sm:w-5 sm:h-5" /></div>
                 <div>
                   <div className="text-xs sm:text-sm font-medium text-[#111810] mb-0.5 sm:mb-1">Working Hours</div>
-                  <div className="text-xs sm:text-sm text-gray-500 font-light">Mon – Sat: 9:00 AM – 6:00 PM</div>
-                  <div className="text-xs sm:text-sm text-gray-500 font-light">Sunday: Closed</div>
+                  <div className="text-xs sm:text-sm text-gray-500 font-light">Everyday: 10:00 AM – 9:00 PM</div>
                 </div>
               </div>
 

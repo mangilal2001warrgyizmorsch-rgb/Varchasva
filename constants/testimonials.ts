@@ -14,60 +14,62 @@ export const testimonials: Testimonial[] = [
   {
     id: "1",
     name: "Aditi Sharma",
-    role: "Wholesale Distributor",
+    role: "Home Chef",
     rating: 5,
-    content: "We have been distributing Varchasva cold-pressed oils for over a year now. The consistent quality and secure packaging make it a top-seller in our premium grocery segment.",
-    date: "2024-05-12",
-    verified: true,
-    product: "Flaxseed Oil"
-  },
-  {
-    id: "2",
-    name: "Rajesh Kumar",
-    role: "Retail Dealer",
-    rating: 5,
-    content: "Customer retention for Varchasva's Mustard Oil is incredibly high. Once families try it, they never go back to refined alternatives. The supply chain has been very reliable.",
-    date: "2024-06-28",
+    content: "I just received my first bottle of Varchasva Mustard Oil last week. You can instantly tell the difference in purity just from the aroma. It brought back memories of the traditional oil my grandmother used to make. An incredible launch!",
+    date: "2026-08-15",
     verified: true,
     product: "Mustard Oil"
   },
   {
+    id: "2",
+    name: "Rajesh Kumar",
+    role: "Fitness Enthusiast",
+    rating: 5,
+    content: "I was looking for a genuinely cold-pressed groundnut oil and decided to try Varchasva since they just launched. The taste is remarkably fresh, and the packaging is premium. Truly a great start for a new brand!",
+    date: "2026-08-18",
+    verified: true,
+    product: "Groundnut Oil"
+  },
+  {
     id: "3",
     name: "Meera Patel",
-    role: "Organic Store Owner",
+    role: "Wellness Coach",
     rating: 5,
-    content: "Partnering with Varchasva has elevated our store's reputation. The authentic aroma and purity of their Sesame Oil exactly match the traditional standards our health-conscious customers demand.",
-    date: "2024-07-15",
+    content: "Tried their Sesame Oil as soon as they launched. The texture and authentic nutty flavor are unmatched. It’s hard to find such unadulterated oils these days. So glad I discovered them early on.",
+    date: "2026-08-12",
     verified: true,
     product: "Sesame Oil"
   },
   {
     id: "4",
     name: "Sanjay Gupta",
-    role: "Regional Distributor",
+    role: "Food Blogger",
     rating: 5,
-    content: "The market demand for authentic cold-pressed oils is surging, and Varchasva stands out. Their transparent manufacturing process and zero-adulteration promise make them an excellent brand to represent.",
-    date: "2024-08-02",
-    verified: true
+    content: "A newly launched brand that completely delivers on its promise. The traditional wooden ghani extraction makes a noticeable difference in the taste of their Flaxseed Oil. Highly recommended for anyone switching to healthy cooking.",
+    date: "2026-08-20",
+    verified: true,
+    product: "Flaxseed Oil"
   },
   {
     id: "5",
     name: "Sneha Reddy",
-    role: "Supermarket Sourcing Manager",
-    rating: 4,
-    content: "Stocking Varchasva Groundnut Oil was a great decision. The premium packaging attracts buyers, and the taste ensures repeat purchases. Looking forward to larger bulk SKUs.",
-    date: "2024-08-10",
+    role: "Early Customer",
+    rating: 5,
+    content: "I pre-ordered their almond oil as soon as they announced their launch. It just arrived and the quality is absolutely stunning. It feels completely pure and natural. Wishing this new brand lots of success!",
+    date: "2026-08-22",
     verified: true,
-    product: "Groundnut Oil"
+    product: "Almond Oil"
   },
   {
     id: "6",
     name: "Vikram Singh",
-    role: "B2B Supply Partner",
+    role: "Health Conscious Parent",
     rating: 5,
-    content: "We supply premium ingredients to high-end restaurants and wellness resorts. Varchasva's almond oil is consistently requested by our top chefs and spa managers for its unparalleled quality.",
-    date: "2024-08-18",
-    verified: true
+    content: "Switched to Varchasva's Mustard Oil recently for daily cooking. The fact that it's freshly extracted in small batches convinced me to try it. The food tastes noticeably lighter and better. Will definitely order again.",
+    date: "2026-08-21",
+    verified: true,
+    product: "Mustard Oil"
   }
 ];
 

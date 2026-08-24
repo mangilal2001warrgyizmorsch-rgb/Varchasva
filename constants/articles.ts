@@ -49,14 +49,14 @@ export const ARTICLES: Article[] = [
   {
     slug: "coconut-oil-skin-hair-guide",
     title: "Coconut Oil for Skin & Hair: A Complete Guide",
-    excerpt: "Virgin coconut oil has been a beauty staple in India for millennia. Learn the science behind its moisturizing, anti-fungal, and healing properties.",
+    excerpt: "Coconut oil has been a beauty staple in India for millennia. Learn the science behind its moisturizing, anti-fungal, and healing properties.",
     date: "Aug 5, 2026",
     readTime: "6 min read",
     category: "Beauty",
     image: "/journal/journal_coconut.webp",
     content: [
-      "In South India and Kerala, coconut oil isn't just a cooking ingredient — it's a way of life. From the newborn's first massage to the grandmother's daily hair ritual, virgin coconut oil has been the go-to beauty and wellness solution for thousands of years. Modern science is now confirming what these traditions always knew.",
-      "Virgin coconut oil is extracted from fresh coconut meat (copra) through cold-pressing, without any heat or chemical treatment. This preserves its high concentration of lauric acid (around 50% of its fatty acid content), a medium-chain fatty acid with powerful antimicrobial and moisturising properties.",
+      "In South India and Kerala, coconut oil isn't just a cooking ingredient — it's a way of life. From the newborn's first massage to the grandmother's daily hair ritual, coconut oil has been the go-to beauty and wellness solution for thousands of years. Modern science is now confirming what these traditions always knew.",
+      "Coconut oil is extracted from fresh coconut meat (copra) through cold-pressing, without any heat or chemical treatment. This preserves its high concentration of lauric acid (around 50% of its fatty acid content), a medium-chain fatty acid with powerful antimicrobial and moisturising properties.",
       "**For Hair**: Coconut oil's small molecular structure allows it to penetrate the hair shaft, unlike most other oils that simply coat the surface. This deep penetration reduces protein loss, strengthens hair from within, and prevents damage from combing and styling. Apply warm coconut oil to your scalp, massage gently for 10 minutes, and leave for at least 30 minutes before washing.",
       "**For Skin**: The lauric acid in coconut oil has natural antibacterial and anti-inflammatory properties, making it excellent for acne-prone skin. It also forms a protective barrier that locks in moisture without clogging pores. Use it as a night moisturiser, makeup remover, or post-shower body oil.",
       "**For Oral Health**: Oil pulling with coconut oil — swishing a tablespoon in your mouth for 15-20 minutes — has been shown to reduce harmful bacteria, improve gum health, and whiten teeth naturally. This ancient Ayurvedic practice is gaining popularity worldwide.",

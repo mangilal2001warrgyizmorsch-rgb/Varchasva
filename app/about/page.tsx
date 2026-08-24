@@ -117,7 +117,7 @@ export default function AboutPage() {
             variants={fadeInUp}
           >
             <Image 
-              src="/about/about_coconut_pour.webp" 
+              src="/about/about_coconut_pour.jpg" 
               alt="Varchasva Pure Oil" 
               fill
               sizes="100vw"

@@ -139,23 +139,23 @@ export const PRODUCTS: Product[] = [
     ingredients: "100% Pure Cold-Pressed Sesame Seed Oil (Sesamum indicum)",
   },
   {
-    slug: "virgin-coconut-oil",
-    title: "Virgin Coconut Oil",
+    slug: "coconut-oil",
+    title: "Coconut Oil",
     shortTitle: "Coconut Oil",
     price: 450,
     originalPrice: 550,
     size: "1 Litre",
     sizes: ["1 Litre", "5 Litres", "15 Litres"],
-    image: "/products/coconut_img1.webp",
-    gallery: ["/products/coconut_img2.webp", "/products/coconut_img4.webp", "/products/coconut_img3.webp", "/products/coconut_img1.webp"],
+    image: "/products/coconut_img1.jpg",
+    gallery: ["/products/coconut_img2.jpg", "/products/coconut_img4.jpg", "/products/coconut_img3.jpg", "/products/coconut_img1.jpg"],
     rating: 4.8,
     reviews: 94,
     badge: "Organic",
     category: "Cold-Pressed",
     description:
-      "Pure virgin coconut oil cold-pressed from fresh, hand-picked Kerala coconuts. Retains natural aroma and lauric acid.",
+      "Pure coconut oil cold-pressed from fresh, hand-picked Kerala coconuts. Retains natural aroma and lauric acid.",
     longDescription:
-      "Our Virgin Coconut Oil is sourced from the lush coconut groves of Kerala, where skilled farmers hand-pick mature coconuts at the peak of their oil content. The fresh coconut meat is cold-pressed within hours of harvesting, locking in the delicate tropical aroma and the full nutritional profile. Rich in lauric acid — a medium-chain fatty acid known for its immune-boosting properties — this oil solidifies beautifully below 25°C and melts to a crystal-clear liquid when warmed. It's a true multi-purpose oil, equally at home in the kitchen, the bathroom, and the medicine cabinet.",
+      "Our Coconut Oil is sourced from the lush coconut groves of Kerala, where skilled farmers hand-pick mature coconuts at the peak of their oil content. The fresh coconut meat is cold-pressed within hours of harvesting, locking in the delicate tropical aroma and the full nutritional profile. Rich in lauric acid — a medium-chain fatty acid known for its immune-boosting properties — this oil solidifies beautifully below 25°C and melts to a crystal-clear liquid when warmed. It's a true multi-purpose oil, equally at home in the kitchen, the bathroom, and the medicine cabinet.",
     benefits: [
       "Rich in lauric acid — supports immune function",
       "Medium-chain triglycerides for quick energy",
@@ -175,7 +175,7 @@ export const PRODUCTS: Product[] = [
     ],
     usage:
       "Ideal for South Indian cooking, baking, smoothies, skin and hair care. Use as a healthy alternative to butter in recipes.",
-    ingredients: "100% Pure Virgin Coconut Oil (Cocos nucifera)",
+    ingredients: "100% Pure Coconut Oil (Cocos nucifera)",
   },
 ];
 
