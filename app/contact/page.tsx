@@ -197,7 +197,7 @@ export default function ContactPage() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-xl flex items-center justify-center text-[#1a4a38] flex-shrink-0 border border-gray-100 shadow-sm"><MapPin size={18} className="sm:w-5 sm:h-5" /></div>
                 <div>
                   <div className="text-xs sm:text-sm font-medium text-[#111810] mb-0.5 sm:mb-1">Address</div>
-                  <div className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed">Creative & Innovative Service Provider<br />Udaipur, Udaipur District<br />Rajasthan, India 313001</div>
+                  <div className="text-xs sm:text-sm text-gray-500 font-light leading-relaxed">Varchasva<br />Celebration Mall Road, Oppsite Brand wala,<br/> Bhuwana, Udaipur<br />Rajasthan, India 313001</div>
                 </div>
               </div>
               <div className="flex items-start gap-3.5 sm:gap-4">

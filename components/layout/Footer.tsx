@@ -93,12 +93,12 @@ export default function Footer() {
         >
           <motion.div variants={staggerItem} className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex flex-col items-start mb-4 sm:mb-6">
-              <div className="relative h-16 sm:h-20 md:h-24 w-48 sm:w-56 md:w-64 mb-2">
+              <div className="relative h-24 sm:h-32 md:h-36 w-full max-w-xs mb-2">
                 <Image 
                   src="/common/logo.webp" 
                   alt="Varchasva Natural Oils" 
                   fill
-                  sizes="250px"
+                  sizes="320px"
                   className="object-contain object-left origin-left" 
                 />
               </div>
@@ -107,7 +107,7 @@ export default function Footer() {
               Reviving ancient wellness through 100% pure, cold-pressed oils. Honestly crafted from seed to bottle.
             </p>
             <div className="text-xs text-gray-500 font-light mb-6 sm:mb-8 space-y-2">
-              <p><strong className="text-gray-700">Manufactured by:</strong><br />Creative & Innovative Service Provider</p>
+              <p><strong className="text-gray-700">Address:</strong><br />Varchasva<br />Celebration Mall Road, Oppsite Brand wala,<br/> Bhuwana, Udaipur<br />Rajasthan, India 313001</p>
               <p><strong className="text-gray-700">Customer Care:</strong><br />+91 89499 44620</p>
               <div className="flex items-center gap-3 pt-2">
                 <div className="relative w-16 h-10 bg-white/50 rounded flex items-center justify-center p-1 border border-[#e2a325]/20">
