@@ -10,7 +10,7 @@ import { useEnquiry } from "../../context/EnquiryContext";
 import { fadeInUp, staggerContainer, staggerItem, heroStagger, heroReveal, viewportOnce } from "../../utils/animations";
 
 const FAQS = [
-  { q: "What is cold-pressed oil?", a: "Cold-pressed oil is extracted from seeds using a mechanical press (wooden ghani or expeller) at temperatures below 40°C. Unlike refined oils, no chemicals, heat, or solvents are used. This preserves the oil's natural nutrients, flavour, colour, and aroma." },
+  { q: "What is cold-pressed oil?", a: "Cold-pressed oil is extracted from seeds using a mechanical press (cold press machine or expeller) at temperatures below 40°C. Unlike refined oils, no chemicals, heat, or solvents are used. This preserves the oil's natural nutrients, flavour, colour, and aroma." },
   { q: "How is cold-pressed different from refined oil?", a: "Refined oils undergo chemical extraction using hexane, followed by bleaching, deodorizing, and high-heat processing — which strips away most nutrients and natural compounds. Cold-pressed oils retain 100% of their vitamins, antioxidants, and essential fatty acids." },
   { q: "Are your oils organic?", a: "While not all our oils carry an official organic certification, we work exclusively with farming families who practice chemical-free, sustainable agriculture. We are currently in the process of obtaining organic certification for select products." },
   { q: "What is the shelf life of your oils?", a: "Our cold-pressed oils have a natural shelf life of 6–8 months from the pressing date. We recommend storing them in a cool, dark place away from direct sunlight. Once opened, refrigeration can extend freshness." },

@@ -46,7 +46,7 @@ export const testimonials: Testimonial[] = [
     name: "Sanjay Gupta",
     role: "Food Blogger",
     rating: 5,
-    content: "A newly launched brand that completely delivers on its promise. The traditional wooden ghani extraction makes a noticeable difference in the taste of their Flaxseed Oil. Highly recommended for anyone switching to healthy cooking.",
+    content: "A newly launched brand that completely delivers on its promise. The modern cold press machine extraction makes a noticeable difference in the taste of their Flaxseed Oil. Highly recommended for anyone switching to healthy cooking.",
     date: "2026-08-20",
     verified: true,
     product: "Flaxseed Oil"

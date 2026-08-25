@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Varchasva | Pure Cold-Pressed Natural Oils",
     template: "%s | Varchasva"
   },
-  description: "Discover Varchasva's premium range of 100% pure, cold-pressed oils. Extracted using traditional wooden ghani methods for maximum health benefits and rich flavor.",
+  description: "Discover Varchasva's premium range of 100% pure, cold-pressed oils. Extracted using modern cold press machine methods for maximum health benefits and rich flavor.",
 };
 
 import { Toaster } from "react-hot-toast";

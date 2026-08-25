@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Premium Cold-Pressed Oils | 100% Pure & Natural",
-  description: "Experience the purity of Varchasva cold-pressed oils. Our traditional wooden ghani extraction preserves essential nutrients, authentic flavor, and natural aroma.",
+  description: "Experience the purity of Varchasva cold-pressed oils. Our modern cold press machine extraction preserves essential nutrients, authentic flavor, and natural aroma.",
   alternates: {
     canonical: '/',
   },

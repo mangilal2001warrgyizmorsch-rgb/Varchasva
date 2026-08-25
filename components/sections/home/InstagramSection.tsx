@@ -12,7 +12,7 @@ const igImages = [
   { src: IMAGES.ig2, alt: "Mustard flowers field" },
   { src: IMAGES.ig3, alt: "Product bottle" },
   { src: IMAGES.ig4, alt: "Heritage woman" },
-  { src: IMAGES.ig5, alt: "Wooden spoon with seeds" },
+  { src: IMAGES.ig5, alt: "cold press spoon with seeds" },
   { src: IMAGES.ig6, alt: "Indian dish with oil" },
 ];
 

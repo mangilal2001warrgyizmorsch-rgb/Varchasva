@@ -37,9 +37,9 @@ export const PRODUCTS: Product[] = [
     badge: "Bestseller",
     category: "Cold-Pressed",
     description:
-      "Our signature cold-pressed mustard oil, extracted from hand-selected Rajasthani Rai seeds using traditional wooden ghani.",
+      "Our signature cold-pressed mustard oil, extracted from hand-selected Rajasthani Rai seeds using modern cold press machine.",
     longDescription:
-      "Varchasva Cold-Pressed Mustard Oil is crafted from the finest Rajasthani Rai seeds, hand-selected from local farmers who practice sustainable agriculture. Each batch is slowly pressed in a traditional wooden ghani (cold-press) at temperatures below 40°C, ensuring that every drop retains its natural pungency, rich amber colour, and full spectrum of nutrients. Unlike refined oils that undergo chemical processing, our mustard oil preserves its natural allyl isothiocyanate — the compound responsible for its characteristic heat and antimicrobial properties. This oil has been the cornerstone of Indian kitchens for generations, trusted for its bold flavour in pickles, tadkas, and daily cooking.",
+      "Varchasva Cold-Pressed Mustard Oil is crafted from the finest Rajasthani Rai seeds, hand-selected from local farmers who practice sustainable agriculture. Each batch is slowly pressed in a modern cold press machine (cold-press) at temperatures below 40°C, ensuring that every drop retains its natural pungency, rich amber colour, and full spectrum of nutrients. Unlike refined oils that undergo chemical processing, our mustard oil preserves its natural allyl isothiocyanate — the compound responsible for its characteristic heat and antimicrobial properties. This oil has been the cornerstone of Indian kitchens for generations, trusted for its bold flavour in pickles, tadkas, and daily cooking.",
     benefits: [
       "Rich in Omega-3 and Omega-6 fatty acids",
       "Natural antimicrobial and anti-inflammatory properties",

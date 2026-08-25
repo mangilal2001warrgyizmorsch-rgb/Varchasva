@@ -22,7 +22,7 @@ const BENEFITS = [
 ];
 
 const COMPARISON = [
-  { feature: "Extraction Method", cold: "Wooden ghani / Expeller below 40°C", refined: "Chemical solvent (hexane) + high heat" },
+  { feature: "Extraction Method", cold: "cold press machine / Expeller below 40°C", refined: "Chemical solvent (hexane) + high heat" },
   { feature: "Nutrients Preserved", cold: "100% — Vitamins, Omega, Antioxidants", refined: "Most destroyed during processing" },
   { feature: "Chemical Additives", cold: "Zero chemicals added", refined: "Bleaching agents, deodorizers" },
   { feature: "Natural Flavour", cold: "Full, rich, characteristic aroma", refined: "Neutral — flavour stripped away" },

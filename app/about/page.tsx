@@ -60,8 +60,8 @@ export default function AboutPage() {
               A Legacy of <span className="text-[#e2a325] italic font-light">Pure Goodness</span>
             </h2>
             <div className="space-y-3 sm:space-y-4 text-gray-600 font-light leading-relaxed text-sm sm:text-base">
-              <p>Varchasva was born from a simple belief — that the oils our grandmothers trusted should not be lost to industrial processing. In the villages of Rajasthan, families have been pressing mustard, sesame, and groundnut oils using wooden ghanis for centuries.</p>
-              <p>We started Varchasva to bridge this heritage with modern wellness. Every bottle we produce follows the same time-honoured methods — hand-selected seeds, slow wooden pressing below 40°C, and zero chemical processing. The result is oil that tastes, smells, and nourishes exactly as nature intended.</p>
+              <p>Varchasva was born from a simple belief — that the oils our grandmothers trusted should not be lost to industrial processing. In the villages of Rajasthan, families have been pressing mustard, sesame, and groundnut oils using cold press machines for centuries.</p>
+              <p>We started Varchasva to bridge this heritage with modern wellness. Every bottle we produce follows the same time-honoured methods — hand-selected seeds, slow cold pressing below 40°C, and zero chemical processing. The result is oil that tastes, smells, and nourishes exactly as nature intended.</p>
               <p>Today, we work directly with over 200 farming families across Rajasthan, Gujarat, and Kerala, ensuring fair prices for their harvest and the highest quality for your kitchen.</p>
             </div>
           </motion.div>
@@ -177,7 +177,7 @@ export default function AboutPage() {
               { icon: <Leaf size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Purity", desc: "Zero additives, zero chemicals. Every drop is 100% natural." },
               { icon: <Users size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Community", desc: "Direct partnerships with 200+ farming families across India." },
               { icon: <Award size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Quality", desc: "Lab-tested and certified. We never compromise on standards." },
-              { icon: <Sparkles size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Tradition", desc: "Centuries-old wooden ghani pressing preserved for modern wellness." },
+              { icon: <Sparkles size={22} strokeWidth={1.5} className="sm:w-6 sm:h-6" />, title: "Tradition", desc: "Centuries-old cold press machine pressing preserved for modern wellness." },
             ].map((v) => (
               <motion.div key={v.title} variants={staggerItem} className="text-center group p-2">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 sm:mb-4 bg-[#fdfaf6] rounded-2xl flex items-center justify-center text-[#1a4a38] group-hover:bg-[#1a4a38] group-hover:text-white transition-colors duration-500 border border-gray-100">{v.icon}</div>

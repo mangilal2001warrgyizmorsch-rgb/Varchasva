@@ -31,7 +31,7 @@ const scenes = [
   {
     eyebrow: "TRADITIONAL COLD PRESS",
     heading: "Crafted the Traditional Way",
-    description: "Our traditional wooden ghani gently extracts the natural goodness from every seed.",
+    description: "Our modern cold press machine gently extracts the natural goodness from every seed.",
   },
   {
     eyebrow: "NATURAL EXTRACTION",

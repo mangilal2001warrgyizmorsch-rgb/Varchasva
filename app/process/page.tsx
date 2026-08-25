@@ -50,7 +50,7 @@ const STEPS: StepItem[] = [
     tag: "Slow Craftsmanship",
     title: "Traditional kachi ghani",
     subtitle: "Cold Extraction Below 40°C",
-    desc: "Extracted in an authentic slow-turning Vaghai wooden pestle. Rotating at low RPMs prevents friction heat, safeguarding all live enzymes, antioxidants, Vitamin E, and authentic nutty aroma.",
+    desc: "Extracted in an authentic slow-turning Vaghai steel extractor. Rotating at low RPMs prevents friction heat, safeguarding all live enzymes, antioxidants, Vitamin E, and authentic nutty aroma.",
     highlight: "Real Wood-Pressed (Kachi Ghani)",
     metric: "< 40°C True Cold Press",
     icon: Droplets,
@@ -182,7 +182,7 @@ export default function ProcessPage() {
           </motion.h1>
 
           <motion.p variants={heroReveal} className="text-base sm:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mb-8">
-            Every drop is extracted without heat, chemicals, or rush. Explore our step-by-step wooden ghani journey from harvest to bottle.
+            Every drop is extracted without heat, chemicals, or rush. Explore our step-by-step cold press machine journey from harvest to bottle.
           </motion.p>
 
           <motion.div variants={heroReveal} className="flex flex-wrap items-center gap-4">
