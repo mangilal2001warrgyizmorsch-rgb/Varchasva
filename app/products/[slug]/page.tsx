@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Star,
   ChevronRight,
+  ChevronLeft,
   Leaf,
   Shield,
   Heart,
@@ -39,6 +40,7 @@ export default function ProductDetailPage() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";
   const product = getProductBySlug(slug);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   if (!product) {
     return (
@@ -96,8 +98,8 @@ export default function ProductDetailPage() {
       {/* PRODUCT HERO */}
       <section className="bg-[#fdfaf6] pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-start pt-3 sm:pt-6">
-          <ProductGallery product={product} />
-          <ProductInfo product={product} />
+          <ProductGallery product={product} activeIdx={activeIdx} setActiveIdx={setActiveIdx} />
+          <ProductInfo product={product} setActiveIdx={setActiveIdx} />
         </div>
       </section>
 
@@ -205,45 +207,7 @@ export default function ProductDetailPage() {
             viewport={viewportOnce}
           >
             {related.map((p, idx) => (
-              <motion.div
-                key={p.slug}
-                variants={staggerItem}
-                className={
-                  idx === 2
-                    ? "sm:col-span-2 lg:col-span-1 max-w-md sm:max-w-none mx-auto w-full"
-                    : ""
-                }
-              >
-                <Link href={`/products/${p.slug}`}>
-                  <div className="bg-white p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 cursor-pointer hover:-translate-y-1">
-                    <div className="relative aspect-[4/5] bg-[#fdfaf6] mb-5 sm:mb-8 flex justify-center items-center overflow-hidden rounded-2xl group-hover:bg-white transition-colors duration-500">
-                      <Image
-                        src={p.image}
-                        alt={p.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out"
-                      />
-                      <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/80 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">
-                        {p.badge}
-                      </div>
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors mb-2 sm:mb-3">
-                      {p.title}
-                    </h3>
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="flex text-[#e2a325] gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={13} fill="currentColor" />
-                        ))}
-                      </div>
-                      <div className="text-xs sm:text-sm text-gray-400 font-light">
-                        ({p.reviews} reviews)
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+              <RelatedProductCard key={p.slug} p={p} idx={idx} />
             ))}
           </motion.div>
           <motion.div
@@ -267,8 +231,23 @@ export default function ProductDetailPage() {
   );
 }
 
-function ProductGallery({ product }: { product: Product }) {
-  const [activeIdx, setActiveIdx] = useState(0);
+function ProductGallery({ product, activeIdx, setActiveIdx }: { product: Product, activeIdx: number, setActiveIdx: React.Dispatch<React.SetStateAction<number>> }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const nextImage = React.useCallback(() => {
+    setActiveIdx((prev) => (prev + 1) % product.gallery.length);
+  }, [product.gallery.length]);
+
+  const prevImage = React.useCallback(() => {
+    setActiveIdx((prev) => (prev - 1 + product.gallery.length) % product.gallery.length);
+  }, [product.gallery.length]);
+
+  React.useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(nextImage, 4000);
+    return () => clearInterval(interval);
+  }, [nextImage, isHovered]);
+
   return (
     <motion.div
       className="flex flex-col gap-3 sm:gap-4 w-full max-w-[420px] mx-auto"
@@ -282,6 +261,8 @@ function ProductGallery({ product }: { product: Product }) {
         initial={{ opacity: 0.6 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <Image
           src={product.gallery[activeIdx]}
@@ -294,8 +275,26 @@ function ProductGallery({ product }: { product: Product }) {
         <div className="absolute top-4 sm:top-6 right-4 sm:right-6 bg-white/85 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 text-[8px] sm:text-[10px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">
           {product.badge}
         </div>
+
+        {/* Navigation Arrows */}
+        <div className="absolute inset-y-0 left-0 flex items-center px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button 
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 text-[#1a4a38] flex items-center justify-center shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer"
+          >
+            <ChevronLeft size={20} />
+          </button>
+        </div>
+        <div className="absolute inset-y-0 right-0 flex items-center px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button 
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 text-[#1a4a38] flex items-center justify-center shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </motion.div>
-      <div className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-1 scrollbar-none justify-center">
+      <div className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-2 px-1 scrollbar-none justify-start">
         {product.gallery.map((img, i) => (
           <button
             key={i}
@@ -316,7 +315,7 @@ function ProductGallery({ product }: { product: Product }) {
   );
 }
 
-function ProductInfo({ product }: { product: Product }) {
+function ProductInfo({ product, setActiveIdx }: { product: Product, setActiveIdx: (idx: number) => void }) {
   const { openEnquiry } = useEnquiry();
   const [selectedSize, setSelectedSize] = useState(product.size);
   return (
@@ -363,7 +362,12 @@ function ProductInfo({ product }: { product: Product }) {
           {product.sizes.map((sz) => (
             <button
               key={sz}
-              onClick={() => setSelectedSize(sz)}
+              onClick={() => {
+                setSelectedSize(sz);
+                if (sz === "1 Litre") setActiveIdx(0);
+                if (sz === "5 Litres") setActiveIdx(1);
+                if (sz === "15 Litres") setActiveIdx(2);
+              }}
               className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border cursor-pointer ${selectedSize === sz ? "bg-[#111810] text-white border-[#111810] shadow-md shadow-black/10" : "bg-white text-gray-600 border-gray-200 hover:border-[#1a4a38] hover:text-[#1a4a38]"}`}
             >
               {sz}
@@ -561,5 +565,74 @@ function ProductTabs({ product }: { product: Product }) {
         </div>
       </div>
     </motion.section>
+  );
+}
+
+function RelatedProductCard({ p, idx }: { p: Product; idx: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (!isHovered) {
+      setActiveIdx(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % p.gallery.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isHovered, p.gallery.length]);
+
+  return (
+    <motion.div
+      variants={staggerItem}
+      className={
+        idx === 2
+          ? "sm:col-span-2 lg:col-span-1 max-w-md sm:max-w-none mx-auto w-full"
+          : ""
+      }
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link href={`/products/${p.slug}`}>
+        <div className="bg-white p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 cursor-pointer hover:-translate-y-1">
+          <div className="relative aspect-[4/5] bg-[#fdfaf6] mb-5 sm:mb-8 flex justify-center items-center overflow-hidden rounded-2xl group-hover:bg-white transition-colors duration-500">
+            <motion.div 
+              className="flex w-full h-full"
+              animate={{ x: `-${activeIdx * 100}%` }}
+              transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+            >
+              {p.gallery.map((img, i) => (
+                <div key={i} className="relative w-full h-full flex-shrink-0">
+                  <Image
+                    src={img}
+                    alt={`${p.title} view ${i + 1}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover mix-blend-multiply"
+                  />
+                </div>
+              ))}
+            </motion.div>
+            <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/80 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">
+              {p.badge}
+            </div>
+          </div>
+          <h3 className="text-lg sm:text-xl font-serif text-[#111810] leading-tight group-hover:text-[#1a4a38] transition-colors mb-2 sm:mb-3">
+            {p.title}
+          </h3>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex text-[#e2a325] gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={13} fill="currentColor" />
+              ))}
+            </div>
+            <div className="text-xs sm:text-sm text-gray-400 font-light">
+              ({p.reviews} reviews)
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
   );
 }

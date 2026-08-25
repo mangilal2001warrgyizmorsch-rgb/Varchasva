@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -167,21 +167,46 @@ export default function ProductsPage() {
 
 function ProductCard({ product }: { product: Product }) {
   const { openEnquiry } = useEnquiry();
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    if (!isHovered) {
+      setActiveIdx(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % product.gallery.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isHovered, product.gallery.length]);
 
   return (
     <motion.div 
       variants={staggerItem}
       className="bg-white p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 group hover:border-[#1a4a38]/20 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 flex flex-col hover:-translate-y-1"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/products/${product.slug}`}>
         <div className="relative aspect-[4/5] bg-[#fdfaf6] mb-5 sm:mb-8 flex justify-center items-center overflow-hidden rounded-2xl group-hover:bg-white transition-colors duration-500 cursor-pointer">
-          <Image 
-            src={product.image} 
-            alt={product.title} 
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" 
-          />
+          <motion.div 
+            className="flex w-full h-full"
+            animate={{ x: `-${activeIdx * 100}%` }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+          >
+            {product.gallery.map((img, i) => (
+              <div key={i} className="relative w-full h-full flex-shrink-0">
+                <Image 
+                  src={img} 
+                  alt={`${product.title} view ${i + 1}`} 
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover mix-blend-multiply" 
+                />
+              </div>
+            ))}
+          </motion.div>
           <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/85 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 text-[8px] sm:text-[9px] font-bold tracking-widest uppercase text-[#e2a325] shadow-sm rounded-full">{product.badge}</div>
         </div>
       </Link>

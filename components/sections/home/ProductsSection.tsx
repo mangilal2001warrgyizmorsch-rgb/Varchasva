@@ -45,6 +45,7 @@ export default function ProductsSection() {
               badge={product.badge}
               rating={product.rating}
               reviews={product.reviews}
+              gallery={product.gallery}
             />
           ))}
         </motion.div>
@@ -67,22 +68,48 @@ export default function ProductsSection() {
   );
 }
 
-function ProductCard({ title, slug, size, image, badge, rating, reviews }: { title: string; slug: string; size: string; image: string; badge: string; rating: number; reviews: number }) {
+function ProductCard({ title, slug, size, image, badge, rating, reviews, gallery }: { title: string; slug: string; size: string; image: string; badge: string; rating: number; reviews: number; gallery: string[] }) {
   const { openEnquiry } = useEnquiry();
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!isHovered) {
+      setActiveIdx(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % gallery.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isHovered, gallery.length]);
+
   return (
     <motion.div 
       variants={staggerItem}
       className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 p-5 sm:p-6 flex flex-col group hover:border-[#1a4a38]/20 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 hover:-translate-y-1"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/products/${slug}`} className="block mb-5 sm:mb-6 relative">
         <div className="aspect-square rounded-[1.2rem] sm:rounded-[1.5rem] overflow-hidden bg-[#fdfaf6] border border-gray-50 relative">
-          <Image 
-            src={image} 
-            alt={title} 
-            fill 
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
-          />
+          <motion.div 
+            className="flex w-full h-full"
+            animate={{ x: `-${activeIdx * 100}%` }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+          >
+            {gallery.map((img, i) => (
+              <div key={i} className="relative w-full h-full flex-shrink-0">
+                <Image 
+                  src={img} 
+                  alt={`${title} view ${i + 1}`} 
+                  fill 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover mix-blend-multiply" 
+                />
+              </div>
+            ))}
+          </motion.div>
         </div>
         {badge && (
           <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-white/90 backdrop-blur text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-[#1a4a38] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-lg border border-white">{badge}</span>
