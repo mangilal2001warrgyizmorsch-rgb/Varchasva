@@ -107,7 +107,7 @@ export default function Footer() {
               Reviving ancient wellness through 100% pure, cold-pressed oils. Honestly crafted from seed to bottle.
             </p>
             <div className="text-xs text-gray-500 font-light mb-6 sm:mb-8 space-y-2">
-              <p><strong className="text-gray-700">Address:</strong><br />Varchasva<br />Celebration Mall Road, Oppsite Brand wala,<br/> Bhuwana, Udaipur<br />Rajasthan, India 313001</p>
+              <p><strong className="text-gray-700">Address:</strong><br />Varchasva<br />Celebration Mall Road, Opposite Brand wala,<br/> Bhuwana, Udaipur<br />Rajasthan, India 313001</p>
               <p><strong className="text-gray-700">Customer Care:</strong><br />+91 89499 44620</p>
               <div className="flex items-center gap-3 pt-2">
                 <div className="relative w-16 h-10  rounded flex items-center justify-center p-1">
