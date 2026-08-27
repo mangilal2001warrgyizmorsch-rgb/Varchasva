@@ -110,7 +110,7 @@ export default function Footer() {
               <p><strong className="text-gray-700">Address:</strong><br />Varchasva<br />Celebration Mall Road, Oppsite Brand wala,<br/> Bhuwana, Udaipur<br />Rajasthan, India 313001</p>
               <p><strong className="text-gray-700">Customer Care:</strong><br />+91 89499 44620</p>
               <div className="flex items-center gap-3 pt-2">
-                <div className="relative w-16 h-10 bg-white/50 rounded flex items-center justify-center p-1 border border-[#e2a325]/20">
+                <div className="relative w-16 h-10  rounded flex items-center justify-center p-1">
                   <Image src="/fssai-logo.png" alt="FSSAI" fill className="object-contain" sizes="64px" />
                 </div>
                 <div>

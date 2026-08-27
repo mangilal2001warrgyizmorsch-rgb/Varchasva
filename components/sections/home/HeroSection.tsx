@@ -56,6 +56,9 @@ export default function HeroSection() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameObj = useRef({ frame: 1 });
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const drawParamsRef = useRef({ ratio: 1, shiftX: 0, shiftY: 0, imgW: 960, imgH: 540 });
+  const lastFrameRef = useRef(-1);
 
   // Preload images
   useEffect(() => {
@@ -67,6 +70,7 @@ export default function HeroSection() {
     images[1] = img1;
 
     img1.onload = () => {
+      setupCanvas();
       renderCanvas(1);
       setImagesLoaded(true);
 
@@ -89,32 +93,70 @@ export default function HeroSection() {
     };
   }, []);
 
-  const renderCanvas = (frameIndex: number) => {
+  // Setup canvas dimensions & cache draw params (only called on init + resize)
+  const setupCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    
+
+    const dw = window.innerWidth;
+    const dh = window.innerHeight;
+
+    // Only resize when dimensions actually change (avoids GPU buffer reallocation)
+    if (canvas.width !== dw || canvas.height !== dh) {
+      canvas.width = dw;
+      canvas.height = dh;
+      // Re-acquire context after resize (resize resets the context)
+      ctxRef.current = canvas.getContext("2d");
+    } else if (!ctxRef.current) {
+      ctxRef.current = canvas.getContext("2d");
+    }
+
+    // Cache draw parameters (all frames share identical dimensions)
+    const sampleImg = imagesRef.current[1];
+    if (sampleImg && sampleImg.complete) {
+      const hRatio = dw / sampleImg.width;
+      const vRatio = dh / sampleImg.height;
+      const ratio = Math.max(hRatio, vRatio);
+      drawParamsRef.current = {
+        ratio,
+        shiftX: (dw - sampleImg.width * ratio) / 2,
+        shiftY: (dh - sampleImg.height * ratio) / 2,
+        imgW: sampleImg.width,
+        imgH: sampleImg.height,
+      };
+    }
+
+    // Force re-render after resize
+    lastFrameRef.current = -1;
+  };
+
+  // Ultra-lean render: only clearRect + drawImage using cached values
+  const renderCanvas = (frameIndex: number) => {
+    const ctx = ctxRef.current;
+    const canvas = canvasRef.current;
+    if (!ctx || !canvas) return;
+
     const img = imagesRef.current[frameIndex];
     if (!img || !img.complete) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Skip if this exact frame is already rendered
+    if (lastFrameRef.current === frameIndex) return;
+    lastFrameRef.current = frameIndex;
 
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    const ratio = Math.max(hRatio, vRatio);
-    
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;
-
+    const { ratio, shiftX, shiftY, imgW, imgH } = drawParamsRef.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, img.width, img.height,
-                  centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+    ctx.drawImage(img, 0, 0, imgW, imgH,
+                  shiftX, shiftY, imgW * ratio, imgH * ratio);
   };
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current || !imagesLoaded) return;
+
+    // Ensure canvas is sized and draw params are cached
+    setupCanvas();
+
+    // Normalize scroll for smooth mobile experience (prevents iOS Safari jitter)
+    ScrollTrigger.normalizeScroll(true);
 
     // Accessibility check
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -143,7 +185,7 @@ export default function HeroSection() {
           trigger: containerRef.current,
           start: "top top",
           end: "+=500%",
-          scrub: 1.5,
+          scrub: 0.8,
           pin: true,
         }
       });
@@ -188,11 +230,15 @@ export default function HeroSection() {
       });
     });
 
-    const handleResize = () => renderCanvas(Math.round(frameObj.current.frame));
+    const handleResize = () => {
+      setupCanvas();
+      renderCanvas(Math.round(frameObj.current.frame));
+    };
     window.addEventListener("resize", handleResize);
 
     return () => {
       ctx.revert();
+      ScrollTrigger.normalizeScroll(false);
       window.removeEventListener("resize", handleResize);
     };
   }, [imagesLoaded]);
